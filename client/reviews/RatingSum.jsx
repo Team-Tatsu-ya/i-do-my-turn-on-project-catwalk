@@ -21,7 +21,7 @@ const RatingSum = (props) => {
   return (
     <div>
       <Grid container spacing={2} className={classes.grid}>
-        <Grid item xs={2} className={classes.font}>
+        <Grid item xs={3} className={classes.font}>
           {average}
         </Grid>
         <Grid item xs={2}>

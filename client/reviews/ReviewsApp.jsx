@@ -3,18 +3,7 @@ import dummyData from './dummyData.js';
 import ReviewList from './ReviewList.jsx';
 import OneReview from './OneReview.jsx';
 import RatingSum from './RatingSum.jsx';
-
-
-// .button {
-//   background-color: #4CAF50; /* Green */
-//   border: none;
-//   color: white;
-//   padding: 15px 32px;
-//   text-align: center;
-//   text-decoration: none;
-//   display: inline-block;
-//   font-size: 16px;
-// }
+import { Grid } from '@material-ui/core';
 
 
 class ReviewsApp extends Component {
@@ -39,14 +28,14 @@ class ReviewsApp extends Component {
   //post a review
   addReview() {
     axios.post()
-    .then()
-    .catch()
+      .then()
+      .catch()
   }
   //get a review
   getReview() {
     axios.get()
-    .then()
-    .catch()
+      .then()
+      .catch()
   }
 
   getsRestReviews() {
@@ -57,14 +46,33 @@ class ReviewsApp extends Component {
 
     return (
       <div>
-        Ratings and Reviews
-        <RatingSum ratings={this.state.product}/>
-        {/* This is are being sorted by relevance */}
-        <ReviewList reviews={this.state.product} />
-        {/* When the button is clicked, the rest of the reviews display */}
-        <button>More Reviews</button>
-        {/* when button clicked make a modal popup */}
-        <button>Add a Review</button>
+        <Grid container spacing={2}>
+          <Grid item xs={2}>
+
+          </Grid>
+          <Grid item xs={3}>
+            Ratings and Reviews
+        <RatingSum ratings={this.state.product} />
+          </Grid>
+          <Grid item xs={5}>
+            {/* This is are being sorted by relevance */}
+            <ReviewList reviews={this.state.product} />
+          </Grid>
+          <Grid item xs={2}>
+
+          </Grid>
+          <Grid item xs={5}>
+
+          </Grid>
+          <Grid item xs={2}>
+            {/* When the button is clicked, the rest of the reviews display */}
+            <button id="reviewButtons">More Reviews</button>
+          </Grid>
+          <Grid item xs={2}>
+            {/* when button clicked make a modal popup */}
+            <button id="reviewButtons">Add a Review +</button>
+          </Grid>
+        </Grid>
       </div>
     );
   }
