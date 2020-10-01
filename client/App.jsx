@@ -1,7 +1,7 @@
 import React from 'react';
 import ReviewsApp from './reviews/ReviewsApp.jsx';
 import RelatedApp from './related/RelatedApp.jsx';
-import DetailsApp from './details/DetailsApp.jsx';
+import Details from './details/DetailsApp.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class App extends React.Component {
       <div>
         <h1>App rendering</h1>
         <div id="details">
-          <DetailsApp />
+          <Details />
         </div>
         <div id="related">
           <RelatedApp />
