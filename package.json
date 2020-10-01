@@ -1,17 +1,45 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "maruchan-instant-duds",
+  "version": "1.0.0",
+  "description": "I Do My Little Turn on Project Catwalk (hereafter simply Project Catwalk) aims to revitalize an online apparel retail presence using front-end technologies in the JavaScript stack. Project Catwalk immediately features robust product detail pages, including images & descriptions, ratings & reviews, and related items & outfit-building components for an interactive and user-friendly shopping experience, while also optimizing for performance.",
+  "main": "./server/index.js",
+  "author": "Arielle Scherr, Rose Brame and Daniel Leal",
   "license": "",
   "engines": {
     "node": ">=6.13.0"
   },
   "scripts": {
+    "start": "react-scripts start",
+    "build": "webpack",
+    "start-react": "webpack -d --watch",
+    "start-server": "nodemon server/index.js",
+    "test": "npm run test"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
+    "axios": "^0.20.0",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jquery": "^3.5.1",
+    "mysql": "^2.18.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "^3.4.3"
   },
   "devDependencies": {
-    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor"
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-syntax-jsx": "^7.10.4",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "chai": "^4.2.0",
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "jest": "^26.4.2",
+    "mocha": "^8.1.3",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
   }
 }
