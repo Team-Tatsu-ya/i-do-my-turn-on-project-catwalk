@@ -3,11 +3,11 @@ import React from 'react';
 // import components
 // import Comparison from './widgets/Comparison.jsx';
 // import OutfitList from './widgets/OutfitList.jsx';
-import ProductCard from './widgets/ProductCard.jsx';
+import ProductCard from './ProductCard.jsx';
 // import RelatedList from './widgets/RelatedList.jsx';
 
 // TODO: replace dummy data with a call to the Products API
-import dummy from './widgets/dummy_data.js';
+import dummy from './dummy_data.js';
 
 // import styles, etc.
 // import 'fontsource-roboto'; <--- may add back in later since its standard for MaterialUI
