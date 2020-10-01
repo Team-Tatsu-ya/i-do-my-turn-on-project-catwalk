@@ -1,5 +1,5 @@
 import React from 'react';
-// import DetailsApp from './details/DetailsApp.jsx';
+import DetailsApp from './details/DetailsApp.jsx';
 // import RelatedApp from './related/RelatedApp.jsx';
 // import ReviewsApp from './reviews/ReviewsApp.jsx';
 
@@ -17,10 +17,10 @@ class App extends React.Component {
     return (
       <div>
         <h1>App rendering</h1>
-        {/* <div id="details">
-          <DetailsApp />
+        <div id="details">
+          <Details />
         </div>
-        <div id="related">
+        {/* <div id="related">
           <RelatedApp />
         </div>
         <div id="reviews">

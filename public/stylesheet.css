@@ -1,0 +1,75 @@
+#placeholderpic {
+  height: 450px;
+  width: 575px;
+  float: left;
+  display: flex;
+}
+
+#overview {
+  float: right;
+  display: flex;
+  font-family: 'Lato', sans-serif;
+}
+
+#stars {
+  text-transform: lowercase;
+  font-size: 10px;
+  font-weight: 300;
+  color: #525252;
+  cursor: pointer;
+}
+
+#category {
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 100;
+  color: #525252;
+}
+
+#title {
+  font-size: 30px;
+  font-weight: 700;
+  color: #525252;
+}
+
+#price {
+  font-size: 14px;
+  font-weight: 300;
+  color: #525252;
+}
+
+#styletext {
+  font-size: 12px;
+  font-weight: 300;
+  text-transform: uppercase;
+  color: #525252;
+}
+
+#selectsize {
+  background-color: #ffffff;
+  border-color: #525252;
+  border-radius: 0;
+  border-width: 2px;
+}
+
+#slogan {
+  font-family: 'Lato', sans-serif;
+  text-transform: capitalize;
+  font-size: 20px;
+  font-weight: 700;
+  color: #525252;
+}
+
+#desc {
+  font-size: 12px;
+  font-weight: 300;
+  color: #525252;
+  font-family: 'Lato', sans-serif;
+}
+
+#checked {
+  font-size: 12px;
+  font-weight: 300;
+  color: #525252;
+  font-family: 'Lato', sans-serif;
+}
