@@ -18,19 +18,16 @@ export default class StarButton extends React.Component {
     };
 
     this.showModal = this.showModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
-
 
   showModal(e) {
-    if (this.state.show === false) {
-      this.setState({ show: true });
-    } else {
-      this.setState({ show: false });
-    }
+    this.setState({ show: true });
   }
 
-  // TODO: add onClick functionality that opens comparison modal window
-  // onClick={() => { this.showModal(); }} ?
+  closeModal() {
+    this.setState({ show: false });
+  }
 
   render() {
     const buttonStyle = {
@@ -42,7 +39,7 @@ export default class StarButton extends React.Component {
         <div>
           <StarBorderIcon style={buttonStyle} size="small" onClick={this.showModal}/>
         </div>
-        <Comparison show={this.state.show} current={this.state.current} selected={this.state.selected} />
+        <Comparison show={this.state.show} current={this.state.current} selected={this.state.selected} close={this.closeModal}/>
       </div>
     );
   }

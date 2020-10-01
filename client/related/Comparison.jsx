@@ -3,6 +3,7 @@ import React from 'react';
 import Modal from '@material-ui/core/Modal';
 import Typography from '@material-ui/core/Typography';
 import CheckIcon from '@material-ui/icons/Check';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 // Instructions for creating modal window: https://material-ui.com/components/modal/
 
@@ -27,11 +28,8 @@ export default class Comparison extends React.Component {
 
   handleClose () {
     this.setState({show: false});
+    console.log('modal show in state after click: ', this.state.show);
   }
-
-  // showModal (e) {
-  //   this.setState({show: true});
-  // }
 
   render () {
     const modalStyle = {
@@ -77,8 +75,19 @@ export default class Comparison extends React.Component {
       color: '#808080'
     };
 
+    const buttonStyle = {
+      position: 'absolute',
+      zIndex: 1,
+      right: 0,
+      paddingRight: 8,
+      paddingBottom: 8,
+      color: '#DCDCDC',
+      // edge: -10
+    };
+
     const body = (
       <div style={paper}>
+        <CancelIcon style={buttonStyle} size="small" onClick={this.props.close}/>
         <Typography color="textSecondary" style={headerStyle} gutterBottom>
           COMPARING
         </Typography>
@@ -95,7 +104,6 @@ export default class Comparison extends React.Component {
               <th></th>
               <th>
                 <Typography variant="h6" component="h2" color="textSecondary" style={nameStyle}>
-                  {/* need to align right */}
                   <b>Selected Product Name</b>
                 </Typography>
               </th>
@@ -140,15 +148,14 @@ export default class Comparison extends React.Component {
       return (
         <div style={modalStyle}>
           <Modal
+            show={this.state.show}
             open={this.handleOpen}
-            onClose={this.handleClose}
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description">
+            onClose={this.handleClose}>
             {body}
           </Modal>
         </div>
       );
-    } else {
+    } else if (this.props.show === false) {
       return (null);
     }
   }
