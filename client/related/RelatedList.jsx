@@ -9,16 +9,15 @@ export default class RelatedList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: 'related',
+      list: 'related',
       currentProduct: this.props.current,
       productRating: this.props.stars,
       productImage: this.props.image,
       relatedProducts: [],
-      // children: [],
       activeItemIndex: 0
     };
 
-    // this.createCards = this.createCards.bind(this);
+    this.changeActiveItem = this.changeActiveItem.bind(this);
   }
 
   componentDidMount() {
@@ -28,14 +27,16 @@ export default class RelatedList extends React.Component {
     });
     setTimeout(() => {
       this.setState({relatedProducts: [
-        <ProductCard current={this.state.currentProduct} stars={this.state.productRating} image={this.state.productImage} key="related1"/>,
-        <ProductCard current={this.state.currentProduct} stars={this.state.productRating} image={this.state.productImage} key="related2"/>,
-        <ProductCard current={this.state.currentProduct} stars={this.state.productRating} image={this.state.productImage} key="related3"/>,
-        <ProductCard current={this.state.currentProduct} stars={this.state.productRating} image={this.state.productImage} key="related4"/>,
-        <ProductCard current={this.state.currentProduct} stars={this.state.productRating} image={this.state.productImage} key="related5"/>,
+        <ProductCard current={this.state.currentProduct} stars={this.state.productRating} image={this.state.productImage} list={this.state.list} key="related1"/>,
+        <ProductCard current={this.state.currentProduct} stars={this.state.productRating} image={this.state.productImage} list={this.state.list} key="related2"/>,
+        <ProductCard current={this.state.currentProduct} stars={this.state.productRating} image={this.state.productImage} list={this.state.list} key="related3"/>,
+        <ProductCard current={this.state.currentProduct} stars={this.state.productRating} image={this.state.productImage} list={this.state.list} key="related4"/>,
+        <ProductCard current={this.state.currentProduct} stars={this.state.productRating} image={this.state.productImage} list={this.state.list} key="related5"/>,
       ]});
     }, 100);
   }
+
+  // TODO: use this method to pull in data from related products and map each product to a product card in carousel
 
   // createCards(n) {
   //   range(n).map((i) => {
@@ -49,12 +50,14 @@ export default class RelatedList extends React.Component {
     this.setState({activeItemIndex: activeItemIndex});
   }
 
-  // TODO: methods that pull in data from related products
-
   render () {
     const headerStyle = {
       fontSize: 12,
       paddingLeft: 30
+    };
+
+    const carouselStyle = {
+      // TODO: fix carousel so width is fixed and cards don't overlap on window resize
     };
 
     return (
@@ -64,11 +67,6 @@ export default class RelatedList extends React.Component {
         </Typography>
         <br></br>
         <ItemsCarousel
-          // enablePlaceholder
-          // numberOfPlaceholderItems={4}
-          // minimumPlaceholderTime={1000}
-          // placeholderItem={<div style={{height: 400, background: '#EBEBEB'}}>Placeholder</div>}
-
           numberOfCards={4}
           gutter={12}
           showSlither={true}
@@ -83,6 +81,8 @@ export default class RelatedList extends React.Component {
           rightChevron={'>'}
           leftChevron={'<'}
           outsideChevon={false}
+
+          style={carouselStyle}
         >
           {this.state.relatedProducts}
         </ItemsCarousel>

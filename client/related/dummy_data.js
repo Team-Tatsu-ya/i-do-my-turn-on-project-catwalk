@@ -55,8 +55,8 @@ var styleDummy = {
       "default?": 1,
       "photos": [
         {
-          "thumbnail_url": "https://i5.walmartimages.com/asr/112eb075-76cb-4e22-9024-8705b28ed68c_1.db544800fcbb66a69ac23cd555ec102f.jpeg?odnWidth=612&odnHeight=612&odnBg=ffffff",
-          "url": "https://i5.walmartimages.com/asr/112eb075-76cb-4e22-9024-8705b28ed68c_1.db544800fcbb66a69ac23cd555ec102f.jpeg?odnWidth=612&odnHeight=612&odnBg=ffffff"
+          "thumbnail_url": "https://cdn.shopify.com/s/files/1/0955/4488/products/camo_jacket_2_1200x1200.png?v=1569062599",
+          "url": "https://cdn.shopify.com/s/files/1/0955/4488/products/camo_jacket_2_1200x1200.png?v=1569062599"
         },
         {
           "thumbnail_url": "urlplaceholder/style_1_photo_number_thumbnail.jpg",

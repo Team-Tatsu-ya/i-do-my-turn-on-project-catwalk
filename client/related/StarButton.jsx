@@ -1,12 +1,6 @@
 import React from 'react';
 import Comparison from './Comparison.jsx';
-// import { makeStyles } from '@material-ui/core/styles';
-// import IconButton from '@material-ui/core/IconButton';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
-// import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
-// import { positions } from '@material-ui/system';
-
-
 
 export default class StarButton extends React.Component {
   constructor(props) {

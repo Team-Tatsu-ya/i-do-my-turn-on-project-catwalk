@@ -2,11 +2,8 @@ import React from 'react';
 import StarRating from './StarRating.jsx';
 import StarButton from './StarButton.jsx';
 import XButton from './XButton.jsx';
-// import Comparison from './Comparison.jsx';
 
-// import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-// import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
@@ -15,19 +12,20 @@ export default class ProductCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      mainProduct: 1,
+      mainProduct: this.props.current,
       product: this.props.current,
       productStyle: this.props.style,
       productImage: this.props.image,
-      list: 'related',
-      showComparison: false
+      list: this.props.list,
+      showComparison: false,
     };
 
   }
 
-  // componentDidMount () {
-
-  // }
+  componentDidMount () {
+    // TODO: dynamically render product image and remove this line of code
+    this.setState({productImage: "https://cdn.shopify.com/s/files/1/0955/4488/products/camo_jacket_2_1200x1200.png?v=1569062599"});
+  }
 
   render() {
     if (this.state.list === 'related') {
@@ -36,7 +34,7 @@ export default class ProductCard extends React.Component {
       );
     } else {
       button = (
-        <XButton />
+        <XButton current={this.state.mainProduct} selected={this.state.product} outfit={this.props.outfit}/>
       );
     }
 
@@ -52,7 +50,8 @@ export default class ProductCard extends React.Component {
     };
 
     const productNameStyle = {
-      fontSize: 13
+      fontSize: 13,
+      fontColor: '#525252'
     };
 
     const productPriceStyle = {
@@ -95,82 +94,9 @@ export default class ProductCard extends React.Component {
           <Typography className="productCardPrice" color="textSecondary" style={productPriceStyle}>
             ${this.state.product.default_price}
           </Typography>
-          <StarRating stars={this.props.stars} />
+          <StarRating stars={this.props.stars} selected={this.state.product} current={this.state.mainProduct}/>
         </CardContent>
       </Card>
     );
   }
 }
-
-
-
-
-
-/*
-COPY OF CODE IN CASE I MESS EVERYTHING UP
-
-import React from 'react';
-import StarRating from './StarRating.jsx';
-import StarButton from './StarButton.jsx';
-import XButton from './XButton.jsx';
-
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-// import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-
-const useStyles = makeStyles({
-  root: {
-    minWidth: 200,
-    maxWidth: 200,
-    minHeight: 300,
-    maxHeight: 500
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  category: {
-    fontSize: 10,
-  },
-  name: {
-    fontSize: 13
-  },
-  price: {
-    fontSize: 10,
-    marginBottom: 8,
-  },
-});
-
-
-export default function ProductCard (props) {
-  const product = props.current;
-  const classes = useStyles();
-  const list = 'related';
-
-  // TODO: create some kind of if statement that toggles list between related and outfit
-
-  return (
-    <Card className={classes.root} variant="outlined">
-      <CardContent>
-        <StarButton list={list}/>
-        <img src="https://i5.walmartimages.com/asr/112eb075-76cb-4e22-9024-8705b28ed68c_1.db544800fcbb66a69ac23cd555ec102f.jpeg?odnWidth=612&odnHeight=612&odnBg=ffffff" width="195" height="195" alt="" />
-        <Typography className={classes.category} color="textSecondary" gutterBottom>
-          {product.category.toUpperCase()}
-        </Typography>
-        <Typography className={classes.name} variant="h6" component="h2">
-          <b>{product.name}</b>
-        </Typography>
-        <Typography className={classes.price} color="textSecondary">
-          ${product.default_price}
-        </Typography>
-        <StarRating stars={props.stars} />
-      </CardContent>
-    </Card>
-  );
-
-}
-
-*/

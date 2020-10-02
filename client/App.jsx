@@ -2,6 +2,7 @@ import React from 'react';
 import ReviewsApp from './reviews/ReviewsApp.jsx';
 import RelatedApp from './related/RelatedApp.jsx';
 import Details from './details/DetailsApp.jsx';
+import Typography from '@material-ui/core/Typography';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,7 +17,10 @@ class App extends React.Component {
   render () {
     return (
       <div>
-        <h1>App rendering</h1>
+        <Typography id="title">
+          Maruchan Instant Duds
+        </Typography>
+        <br></br>
         <div id="details">
           <Details />
         </div>

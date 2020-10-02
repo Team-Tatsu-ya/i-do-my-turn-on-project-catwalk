@@ -1,6 +1,7 @@
 import React from 'react';
 import ItemsCarousel from 'react-items-carousel';
 import ProductCard from './ProductCard.jsx';
+import AddToOutfitCard from './AddToOutfitCard.jsx';
 import range from 'lodash/range';
 import dummy from './dummy_data.js';
 import Typography from '@material-ui/core/Typography';
@@ -9,7 +10,7 @@ export default class OutfitList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: 'outfit',
+      list: 'outfit',
       customer: 0,
       outfitProducts: this.props.outfit,
       currentProduct: this.props.current,
@@ -17,6 +18,8 @@ export default class OutfitList extends React.Component {
       productImage: this.props.image,
       activeItemIndex: 0
     };
+
+    this.changeActiveItem = this.changeActiveItem.bind(this);
   }
 
   componentDidMount() {
@@ -26,16 +29,26 @@ export default class OutfitList extends React.Component {
     });
     setTimeout(() => {
       this.setState({outfitProducts: [
-        <ProductCard current={this.state.currentProduct} stars={this.state.productRating} image={this.state.productImage} key="outfit1"/>,
-        <ProductCard current={this.state.currentProduct} stars={this.state.productRating} image={this.state.productImage} key="outfit2"/>,
-        <ProductCard current={this.state.currentProduct} stars={this.state.productRating} image={this.state.productImage} key="outfit3"/>,
-        <ProductCard current={this.state.currentProduct} stars={this.state.productRating} image={this.state.productImage} key="outfit4"/>,
-        <ProductCard current={this.state.currentProduct} stars={this.state.productRating} image={this.state.productImage} key="outfit5"/>,
+        <AddToOutfitCard current={this.state.currentProduct} outfit={this.state.outfitProducts} list={this.state.list} key="add-to-outfit"/>,
+        <ProductCard current={this.state.currentProduct} stars={this.state.productRating} image={this.state.productImage} list={this.state.list} outfit={this.state.outfitProducts} key="outfit1"/>,
+        <ProductCard current={this.state.currentProduct} stars={this.state.productRating} image={this.state.productImage} list={this.state.list} outfit={this.state.outfitProducts} key="outfit2"/>,
+        <ProductCard current={this.state.currentProduct} stars={this.state.productRating} image={this.state.productImage} list={this.state.list} outfit={this.state.outfitProducts} key="outfit3"/>,
+        <ProductCard current={this.state.currentProduct} stars={this.state.productRating} image={this.state.productImage} list={this.state.list} outfit={this.state.outfitProducts} key="outfit4"/>,
+        <ProductCard current={this.state.currentProduct} stars={this.state.productRating} image={this.state.productImage} list={this.state.list} outfit={this.state.outfitProducts} key="outfit5"/>,
       ]});
     }, 100);
   }
 
-  // TODO: methods to pull in customer's unique outfit data
+  // TODO: use this method to pull in customer's unique outfit data and map each product to a product card in carousel
+
+  // createCards(n) {
+  //   range(n).map((i) => {
+  //     (<div key={i} style={{ height: 200, background: '#EBEBEB' }}>
+  //       {i}
+  //     </div>);
+  //   });
+  // }
+
 
   changeActiveItem(activeItemIndex) {
     this.setState({activeItemIndex: activeItemIndex});
@@ -47,6 +60,10 @@ export default class OutfitList extends React.Component {
       paddingLeft: 30
     };
 
+    const carouselStyle = {
+      // TODO: fix carousel so width is fixed and cards don't overlap on window resize
+    };
+
     return (
       <div>
         <Typography color="textSecondary" style={headerStyle} key="outfit-header" gutterBottom>
@@ -54,11 +71,6 @@ export default class OutfitList extends React.Component {
         </Typography>
         <br></br>
         <ItemsCarousel
-          // enablePlaceholder
-          // numberOfPlaceholderItems={4}
-          // minimumPlaceholderTime={1000}
-          // placeholderItem={<div style={{height: 400, background: '#EBEBEB'}}>Placeholder</div>}
-
           numberOfCards={4}
           gutter={12}
           showSlither={true}
@@ -73,6 +85,8 @@ export default class OutfitList extends React.Component {
           rightChevron={'>'}
           leftChevron={'<'}
           outsideChevon={false}
+
+          style={carouselStyle}
         >
           {this.state.outfitProducts}
         </ItemsCarousel>

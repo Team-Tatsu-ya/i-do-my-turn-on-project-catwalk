@@ -1,16 +1,9 @@
 import React from 'react';
-
-// import components
-// import Comparison from './widgets/Comparison.jsx';
+import Grid from '@material-ui/core/Grid';
 import OutfitList from './OutfitList.jsx';
-import ProductCard from './ProductCard.jsx';
 import RelatedList from './RelatedList.jsx';
-
-// TODO: replace dummy data with a call to the Products API
 import dummy from './dummy_data.js';
-
-// import styles, etc.
-// import 'fontsource-roboto'; <--- may add back in later since its standard for MaterialUI
+// import 'fontsource-roboto'; <--- may add back in later
 
 class RelatedApp extends React.Component {
   constructor(props) {
@@ -23,22 +16,34 @@ class RelatedApp extends React.Component {
     };
   }
 
-  // TODO: build skeleton for my app component
-  // TODO: add methods for my get requests to the Products API and for updating customer's outfit data
+  // TODO: add methods for my get requests to the Products API and for updating customer's outfit data (probably pulling from App's state)
+
+  // TODO: remove references to dummy data
 
   render () {
+    var spacing = 2;
 
     return (
       <div>
-        {/* <p>Related Products, Outfit and Comparison</p> */}
-        <RelatedList current={this.state.currentProduct} stars={this.state.productRating} image={this.state.productImage}/>
         <br></br>
-        <OutfitList current={this.state.currentProduct} stars={this.state.productRating} image={this.state.productImage} outfit={this.state.customerOutfit}/>
+        <RelatedList
+          position='center'
+          current={this.state.currentProduct}
+          stars={this.state.productRating}
+          image={this.state.productImage}
+        />
+        <br></br>
+        <OutfitList
+          position='center'
+          current={this.state.currentProduct}
+          stars={this.state.productRating}
+          image={this.state.productImage}
+          outfit={this.state.customerOutfit}
+        />
         <br></br>
         <br></br>
-        {/* <Comparison /> */}
-        {/* TODO: add other components */}
       </div>
+
     );
   }
 }
