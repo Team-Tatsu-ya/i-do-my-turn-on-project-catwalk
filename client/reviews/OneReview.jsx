@@ -12,12 +12,11 @@ const useStyles = makeStyles((theme) => ({
   nameDate: {
     float: 'right'
   },
-  response: {
-    background: 'lightgray',
-    'font-weight': 'normal'
-  },
   bold: {
     'font-weight': 'bold'
+  },
+  grey: {
+    background: 'lightgrey'
   }
 }));
 
@@ -44,8 +43,10 @@ const OneReview = (props) => {
         <Grid item xs={12} className={classes.bold}>
           {props.individual.body}
         </Grid>
-        <Grid item xs={12} className={classes.response}>
+        <Grid item xs={12}>
+          <div className={classes.grey}>
           {props.individual.response !== "" ? <><h3>Response:</h3><h4>{props.individual.response}</h4></> : null}
+          </div>
         </Grid>
         {/* <Grid item xs={4}>
           Helpful counter and report
