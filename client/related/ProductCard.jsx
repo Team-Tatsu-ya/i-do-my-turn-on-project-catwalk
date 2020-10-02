@@ -15,8 +15,10 @@ export default class ProductCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      mainProduct: 0,
+      mainProduct: 1,
       product: this.props.current,
+      productStyle: this.props.style,
+      productImage: this.props.image,
       list: 'related',
       showComparison: false
     };
@@ -70,8 +72,9 @@ export default class ProductCard extends React.Component {
 
     const imageStyle = {
       position: 'relative',
-      width: 195,
-      height: 195
+      width: 180,
+      height: 180,
+      paddingLeft: -5
     };
 
     return (
@@ -81,7 +84,7 @@ export default class ProductCard extends React.Component {
             <IconButton list={this.state.list} style={buttonStyle}>
               {button}
             </IconButton>
-            <img src="https://i5.walmartimages.com/asr/112eb075-76cb-4e22-9024-8705b28ed68c_1.db544800fcbb66a69ac23cd555ec102f.jpeg?odnWidth=612&odnHeight=612&odnBg=ffffff" alt="" style={imageStyle} />
+            <img src={this.state.productImage} alt="" style={imageStyle} />
           </div>
           <Typography className="productCardCategory" color="textSecondary" style={productCategoryStyle} gutterBottom>
             {this.state.product.category.toUpperCase()}

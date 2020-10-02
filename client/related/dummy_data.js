@@ -55,8 +55,8 @@ var styleDummy = {
       "default?": 1,
       "photos": [
         {
-          "thumbnail_url": "urlplaceholder/style_1_photo_number_thumbnail.jpg",
-          "url": "urlplaceholder/style_1_photo_number.jpg"
+          "thumbnail_url": "https://i5.walmartimages.com/asr/112eb075-76cb-4e22-9024-8705b28ed68c_1.db544800fcbb66a69ac23cd555ec102f.jpeg?odnWidth=612&odnHeight=612&odnBg=ffffff",
+          "url": "https://i5.walmartimages.com/asr/112eb075-76cb-4e22-9024-8705b28ed68c_1.db544800fcbb66a69ac23cd555ec102f.jpeg?odnWidth=612&odnHeight=612&odnBg=ffffff"
         },
         {
           "thumbnail_url": "urlplaceholder/style_1_photo_number_thumbnail.jpg",
@@ -143,10 +143,39 @@ var dummyRatings = {
   ]
 };
 
+var dummyRatingsMeta = {
+  "product_id": "2",
+  "ratings": {
+    1: 1,
+    2: 1,
+    3: 1,
+    4: 2,
+    5: 3
+  },
+  "recommended": {
+    0: 5
+  },
+  "characteristics": {
+    "Size": {
+      "id": 14,
+      "value": "4.0000"
+    },
+    "Width": {
+      "id": 15,
+      "value": "3.5000"
+    },
+    "Comfort": {
+      "id": 16,
+      "value": "4.0000"
+    },
+  }
+};
+
 module.exports = {
   productDummyList,
   dummyProduct,
   styleDummy,
   relatedDummy,
-  dummyRatings
+  dummyRatings,
+  dummyRatingsMeta
 };
