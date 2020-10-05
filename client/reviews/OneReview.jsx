@@ -2,6 +2,7 @@ import React from 'react';
 import Rating from '@material-ui/lab/Rating';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
+import moment from 'moment';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -38,7 +39,7 @@ const OneReview = (props) => {
 
         </Grid>
         <Grid item xs={4} className={classes.nameDate}>
-          {props.individual.reviewer_name}, {props.individual.date}
+          {props.individual.reviewer_name}, {moment(props.individual.date).format("LL")}
         </Grid>
         <Grid item xs={12} className={classes.bold}>
           {props.individual.body}
