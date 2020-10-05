@@ -73,3 +73,19 @@
   color: #525252;
   font-family: 'Lato', sans-serif;
 }
+
+#relatedlist {
+  max-width: 900px;
+  min-width: 850px;
+  /* align-content: center;
+  position: center; */
+  margin: auto;
+}
+
+#outfitlist {
+  max-width: 900px;
+  min-width: 850px;
+  /* align-content: center;
+  position: center; */
+  margin: auto;
+}

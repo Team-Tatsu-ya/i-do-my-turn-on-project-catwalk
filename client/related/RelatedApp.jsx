@@ -26,20 +26,25 @@ class RelatedApp extends React.Component {
     return (
       <div>
         <br></br>
-        <RelatedList
-          position='center'
-          current={this.state.currentProduct}
-          stars={this.state.productRating}
-          image={this.state.productImage}
-        />
+        <div id='relatedlist'>
+          <RelatedList
+            position='center'
+            current={this.state.currentProduct}
+            stars={this.state.productRating}
+            image={this.state.productImage}
+          />
+        </div>
+
         <br></br>
-        <OutfitList
-          position='center'
-          current={this.state.currentProduct}
-          stars={this.state.productRating}
-          image={this.state.productImage}
-          outfit={this.state.customerOutfit}
-        />
+        <div id='outfitlist'>
+          <OutfitList
+            position='center'
+            current={this.state.currentProduct}
+            stars={this.state.productRating}
+            image={this.state.productImage}
+            outfit={this.state.customerOutfit}
+          />
+        </div>
         <br></br>
         <br></br>
       </div>

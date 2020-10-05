@@ -8,11 +8,16 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentProduct: {}
+      currentProduct: {},
+      customerOutfit: []
     };
   }
 
   // Shared methods here for API requests
+
+  // Get all products
+
+  // Get one product
 
   render () {
     return (
