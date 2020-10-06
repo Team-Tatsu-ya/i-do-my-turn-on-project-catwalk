@@ -10,9 +10,10 @@ class RelatedApp extends React.Component {
     super(props);
     this.state = {
       currentProduct: dummy.productDummyList[0],
+      currentStyle: this.props.currentStyle,
       productRating: dummy.dummyRatings.results[0].rating,
       productImage: dummy.styleDummy.results[0].photos.url,
-      customerOutfit: []
+      customerOutfit: this.props.outfit
     };
   }
 

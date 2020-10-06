@@ -22,6 +22,7 @@ export default class AddToOutfitCard extends React.Component {
   addProduct() {
     var outfit = this.state.outfitProducts;
     this.setState({outfitProducts: outfit.push(this.state.mainProduct)});
+    console.log('Outfit after adding: ', outfit);
   }
 
   render() {

@@ -12,18 +12,23 @@ export default class XButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      current: this.props.current,
       selected: this.props.selected,
       outfit: this.props.outfit,
-      // remove: this.props.remove
     };
 
     this.removeProduct = this.removeProduct.bind(this);
   }
 
   removeProduct(product) {
-    // TODO: add onClick functionality that removes product from outfit
-
+    var outfit = this.state.outfit;
+    for (var i = 0; i < outfit.length; i++) {
+      if (outfit[i] === this.state.selected) {
+        var newOutfit = outfit.slice();
+        outfit.splice(i, 1);
+        this.setState({outfit: newOutfit});
+      }
+    }
+    console.log('Outfit after removing: ', outfit);
   }
 
   render() {

@@ -9,7 +9,10 @@ class App extends React.Component {
     super(props);
     this.state = {
       currentProduct: {},
-      customerOutfit: []
+      currentProductStyle: {},
+      customerOutfit: [],
+      currentRatingData: {},
+      currentRating: 5
     };
   }
 
@@ -17,7 +20,13 @@ class App extends React.Component {
 
   // Get all products
 
-  // Get one product
+  // Get one product (for general info about product)
+
+  // Get one product style (for styles and photos)
+
+  // Get product review metadata (for star rating)
+
+  // Need a function here to calculate star rating of current product based on currentRatingData
 
   render () {
     return (
@@ -30,7 +39,12 @@ class App extends React.Component {
           <Details />
         </div>
         <div id="related">
-          <RelatedApp />
+          <RelatedApp
+            outfit={this.state.customerOutfit}
+            current={this.state.currentProduct}
+            currentStyle={this.state.currentProductStyle}
+            currentRating={this.state.currentRating}
+          />
         </div>
         <div id="reviews">
           <ReviewsApp />

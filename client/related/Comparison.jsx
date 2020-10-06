@@ -15,6 +15,7 @@ export default class Comparison extends React.Component {
 
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   // TODO: methods for pulling in characteristics data for both products
@@ -27,6 +28,13 @@ export default class Comparison extends React.Component {
     this.setState({show: false});
   }
 
+  // method to make modal close on click outside modal, still working on this
+  handleClick (e) {
+    if (e.target !== this) {
+      this.handleClose();
+    }
+  }
+
   // TODO: map over join table of characteristics of both products and create a table row with each characteristic in column 2
 
   // TODO: make columns 1 and 3 render <CheckIcon/> for true or values associated with each characteristic
@@ -35,14 +43,7 @@ export default class Comparison extends React.Component {
     const modalStyle = {
       display: 'flex',
       alignItems: 'center',
-      position: 'absolute',
-      width: 500,
-      background: '#FFFFFF',
-      verticalAlign: 'middle',
-      textAlign: 'center',
-      marginLeft: -250,
-      marginTop: -250,
-      visibility: 'visible'
+      justifyContent: 'center'
     };
 
     const paper = {
@@ -51,8 +52,6 @@ export default class Comparison extends React.Component {
       width: 'auto',
       height: 'auto',
       border: '0.5px solid #808080',
-      top: '50%',
-      left: '50%',
       padding: 15
     };
 
@@ -142,11 +141,12 @@ export default class Comparison extends React.Component {
 
     if (this.props.show === true) {
       return (
-        <div style={modalStyle}>
+        <div>
           <Modal
-            show={this.state.show}
-            open={this.handleOpen}
-            onClose={this.handleClose}>
+            open={true}
+            onClose={this.handleClose}
+            onClick={this.handleClick}
+            style={modalStyle}>
             {body}
           </Modal>
         </div>

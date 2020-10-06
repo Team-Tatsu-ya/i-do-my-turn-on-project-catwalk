@@ -60,10 +60,6 @@ export default class OutfitList extends React.Component {
       paddingLeft: 30
     };
 
-    const carouselStyle = {
-      // TODO: fix carousel so width is fixed and cards don't overlap on window resize
-    };
-
     return (
       <div>
         <Typography color="textSecondary" style={headerStyle} key="outfit-header" gutterBottom>
@@ -85,8 +81,6 @@ export default class OutfitList extends React.Component {
           rightChevron={'>'}
           leftChevron={'<'}
           outsideChevon={false}
-
-          style={carouselStyle}
         >
           {this.state.outfitProducts}
         </ItemsCarousel>
