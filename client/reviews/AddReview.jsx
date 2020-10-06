@@ -178,7 +178,8 @@ export default function TransitionsModal() {
             <Form>
               <Form.Group controlId="formBasicNickname">
                 <Form.Label>What is your nickname</Form.Label>
-                <textarea rows="1" cols="40" type="nickname" maxLength="60" placeholder="Example:jackson11"></textarea>
+                <input type="text" id="reviewInput" placeholder="Example:jackson11"></input>
+                {/* <textarea rows="1" cols="40" type="nickname" maxLength="60" placeholder="Example:jackson11"></textarea> */}
                 <Form.Text className="text-muted">
                 For privacy reasons, do not use your full name or email address
                 </Form.Text>
@@ -188,7 +189,8 @@ export default function TransitionsModal() {
             <Form>
               <Form.Group controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
-                <textarea rows="1" cols="40" type="email" maxLength="60" placeholder="Example:jackson11@gmail.com"></textarea>
+                <input type="text" id="reviewInput" placeholder="Example:jackson11@gmail.com"></input>
+                {/* <textarea rows="1" cols="40" type="email" maxLength="60" placeholder="Example:jackson11@gmail.com"></textarea> */}
                 <Form.Text className="text-muted">
                 For authentication reasons, you will not be emailed
                 </Form.Text>
