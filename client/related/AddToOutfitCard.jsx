@@ -11,18 +11,16 @@ export default class AddToOutfitCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      mainProduct: this.props.current,
-      outfitProducts: this.props.outfit
+      current: this.props.current,
+      outfit: this.props.outfit
     };
 
     this.addProduct = this.addProduct.bind(this);
   }
 
-  // is this really pushing the changes up to our customerOutfit property in state in parent component RelatedApp?
   addProduct() {
-    var outfit = this.state.outfitProducts;
-    this.setState({outfitProducts: outfit.push(this.state.mainProduct)});
-    console.log('Outfit after adding: ', outfit);
+    this.props.add();
+    console.log('Outfit after adding: ', this.state.outfit);
   }
 
   render() {
@@ -51,21 +49,25 @@ export default class AddToOutfitCard extends React.Component {
       fontSize: 50
     };
 
-    return (
-      <Card className="productCard" variant="outlined" style={outfitCardStyle}>
-        <CardContent>
-          <div id="add-to-outfit" style={addContentStyle}>
-            <Typography className="productCardName" variant="h6" component="h2" style={addHeaderStyle}>
-              <b>ADD TO OUTFIT</b>
-            </Typography>
-            <div>
-              <IconButton onClick={this.addProduct}>
-                <AddIcon style={buttonStyle}/>
-              </IconButton>
+    if (this.state.current.length > 0) {
+      return (
+        <Card className="productCard" variant="outlined" style={outfitCardStyle}>
+          <CardContent>
+            <div id="add-to-outfit" style={addContentStyle}>
+              <Typography className="productCardName" variant="h6" component="h2" style={addHeaderStyle}>
+                <b>ADD TO OUTFIT</b>
+              </Typography>
+              <div>
+                <IconButton onClick={this.addProduct}>
+                  <AddIcon style={buttonStyle}/>
+                </IconButton>
+              </div>
             </div>
-          </div>
-        </CardContent>
-      </Card>
-    );
+          </CardContent>
+        </Card>
+      );
+    } else {
+      return null;
+    }
   }
 }

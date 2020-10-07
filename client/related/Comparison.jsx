@@ -13,19 +13,14 @@ export default class Comparison extends React.Component {
       selected: this.props.selected
     };
 
-    this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
   // TODO: methods for pulling in characteristics data for both products
 
-  handleOpen () {
-    this.setState({show: true});
-  }
-
   handleClose () {
-    this.setState({show: false});
+    this.props.close();
   }
 
   // method to make modal close on click outside modal, still working on this
@@ -95,13 +90,13 @@ export default class Comparison extends React.Component {
             <tr>
               <th>
                 <Typography variant="h6" style={nameStyle} color="textSecondary" component="h2">
-                  <b>{this.state.current.name}</b>
+                  <b>{this.state.current[0].name}</b>
                 </Typography>
               </th>
               <th></th>
               <th>
                 <Typography variant="h6" component="h2" color="textSecondary" style={nameStyle}>
-                  <b>{this.state.current.name}</b>
+                  <b>{this.state.selected[0].name}</b>
                 </Typography>
               </th>
             </tr>
@@ -139,7 +134,8 @@ export default class Comparison extends React.Component {
       </div>
     );
 
-    if (this.props.show === true) {
+    if (this.props.show === true && this.state.current.length > 0 && this.state.selected.length > 0) {
+      // console.log('Comparison state true: ', this.state);
       return (
         <div>
           <Modal
@@ -152,6 +148,7 @@ export default class Comparison extends React.Component {
         </div>
       );
     } else if (this.props.show === false) {
+      // console.log('Comparison state false: ', this.state);
       return (null);
     }
   }

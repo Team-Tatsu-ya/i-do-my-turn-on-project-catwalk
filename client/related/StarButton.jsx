@@ -28,14 +28,18 @@ export default class StarButton extends React.Component {
       edge: -10
     };
 
-    return (
-      <div>
+    if (this.state.current.length > 0 && this.state.selected.length > 0) {
+      return (
         <div>
-          <StarBorderIcon style={buttonStyle} size="small" onClick={this.showModal}/>
+          <div>
+            <StarBorderIcon style={buttonStyle} size="small" onClick={this.showModal}/>
+          </div>
+          <Comparison show={this.state.show} current={this.state.current} selected={this.state.selected} close={this.closeModal} view={this.showModal}/>
         </div>
-        <Comparison show={this.state.show} current={this.state.current} selected={this.state.selected} close={this.closeModal}/>
-      </div>
-    );
+      );
+    } else {
+      return null;
+    }
   }
 }
 

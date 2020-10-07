@@ -3,7 +3,7 @@ import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 
 export default function StarRating(props) {
-  var value = props.stars;
+  var value = props.rating;
 
   return (
     <div>

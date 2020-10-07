@@ -55,8 +55,8 @@ var styleDummy = {
       "default?": 1,
       "photos": [
         {
-          "thumbnail_url": "https://cdn.shopify.com/s/files/1/0955/4488/products/camo_jacket_2_1200x1200.png?v=1569062599",
-          "url": "https://cdn.shopify.com/s/files/1/0955/4488/products/camo_jacket_2_1200x1200.png?v=1569062599"
+          "thumbnail_url": "https://media.jdsports.com/i/jdsports/BQ4630_101_P1?$Main_gray$&bg=rgb(237,237,237)",
+          "url": "https://media.jdsports.com/i/jdsports/BQ4630_101_P1?$Main_gray$&bg=rgb(237,237,237)"
         },
         {
           "thumbnail_url": "urlplaceholder/style_1_photo_number_thumbnail.jpg",
