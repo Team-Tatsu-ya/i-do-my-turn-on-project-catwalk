@@ -11,6 +11,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    // overflow: 'hidden',
+    overflow: 'scroll',
+    height:'105%',
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
@@ -23,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 export default function TransitionsModal() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-  const [value, setValue] = React.useState(0); /// this is currently not working
+  const [value, setValue] = React.useState(0);
 
   const handleOpen = () => {
     setOpen(true);
@@ -180,6 +183,7 @@ export default function TransitionsModal() {
                 <Form.Label>What is your nickname</Form.Label>
                 <input type="text" id="reviewInput" placeholder="Example:jackson11"></input>
                 {/* <textarea rows="1" cols="40" type="nickname" maxLength="60" placeholder="Example:jackson11"></textarea> */}
+                <br></br>
                 <Form.Text className="text-muted">
                 For privacy reasons, do not use your full name or email address
                 </Form.Text>
@@ -191,6 +195,7 @@ export default function TransitionsModal() {
                 <Form.Label>Email address</Form.Label>
                 <input type="text" id="reviewInput" placeholder="Example:jackson11@gmail.com"></input>
                 {/* <textarea rows="1" cols="40" type="email" maxLength="60" placeholder="Example:jackson11@gmail.com"></textarea> */}
+                <br></br>
                 <Form.Text className="text-muted">
                 For authentication reasons, you will not be emailed
                 </Form.Text>
