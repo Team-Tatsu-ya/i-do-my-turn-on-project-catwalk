@@ -10,7 +10,6 @@ export default class OutfitList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      list: 'outfit',
       current: this.props.current,
       outfit: this.props.outfit,
       outfitProducts: [],
@@ -47,7 +46,7 @@ export default class OutfitList extends React.Component {
             outfit={this.state.outfit}
             add={this.props.add}
             remove={this.props.remove}
-            list={this.state.list}
+            list={'outfit'}
             key={'outfit' + id}
           />
         ));

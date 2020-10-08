@@ -10,7 +10,6 @@ export default class RelatedList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      list: 'related',
       current: this.props.current,
       outfit: this.props.outfit,
       relatedProducts: [],
@@ -131,7 +130,7 @@ export default class RelatedList extends React.Component {
             outfit={this.state.outfit}
             add={this.props.add}
             remove={this.props.remove}
-            list={this.state.list}
+            list={'related'}
             key={'related' + id}
           />
         ));

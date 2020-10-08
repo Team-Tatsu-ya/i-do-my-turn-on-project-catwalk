@@ -90,13 +90,13 @@ export default class Comparison extends React.Component {
             <tr>
               <th>
                 <Typography variant="h6" style={nameStyle} color="textSecondary" component="h2">
-                  <b>{this.state.current[0].name}</b>
+                  <b>{this.state.current.info.name}</b>
                 </Typography>
               </th>
               <th></th>
               <th>
                 <Typography variant="h6" component="h2" color="textSecondary" style={nameStyle}>
-                  <b>{this.state.selected[0].name}</b>
+                  <b>{this.state.selected.info.name}</b>
                 </Typography>
               </th>
             </tr>
@@ -134,7 +134,7 @@ export default class Comparison extends React.Component {
       </div>
     );
 
-    if (this.props.show === true && this.state.current.length > 0 && this.state.selected.length > 0) {
+    if (this.props.show === true && Object.keys(this.state.current).length === 4 && Object.keys(this.state.selected).length === 4) {
       // console.log('Comparison state true: ', this.state);
       return (
         <div>

@@ -28,7 +28,7 @@ export default class StarButton extends React.Component {
       edge: -10
     };
 
-    if (this.state.current.length > 0 && this.state.selected.length > 0) {
+    if (Object.keys(this.state.current).length === 4 && Object.keys(this.state.selected).length === 4) {
       return (
         <div>
           <div>
