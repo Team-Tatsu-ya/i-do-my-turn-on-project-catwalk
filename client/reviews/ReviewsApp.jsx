@@ -14,11 +14,11 @@ class ReviewsApp extends Component {
     super(props);
     this.state = {
       product: dummyData,
-      showReviews: 0,
       addButton: false,
-      productId: 3,
+      productId: 10,
       metaData: null,
-      reviewData: null,
+      reviewData: false,
+      status: 'loading',
       page: 1
     };
 
@@ -33,6 +33,7 @@ class ReviewsApp extends Component {
 
   componentDidMount() {
     this.getReviews();
+    console.log("this is the structure of dummyData", this.state.product);
   }
 
   //post a review
@@ -52,11 +53,12 @@ class ReviewsApp extends Component {
       this.setState({
         metaData: results[0].data.ratings,
         reviewData: results[1].data.results,
-        page: nextReview
+        page: nextReview,
+        status: 'loaded'
       })
       console.log('this is the reviewData first axios', this.state.reviewData);
       console.log('this is the meta data', this.state.metaData);
-      console.log('this is the page' , this.state.page);
+      console.log('this is the page', this.state.page);
     }))
       .catch((error) => {
         console.log(error);
@@ -74,9 +76,9 @@ class ReviewsApp extends Component {
       })
       console.log(this.state.reviewData);
     }))
-    .catch((error) => {
-      console.log(error);
-    })
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
   handleMoreReviews() {
@@ -84,7 +86,7 @@ class ReviewsApp extends Component {
   }
 
   handleAdd(event) {
-    this.setState({addButton: true})
+    this.setState({ addButton: true })
   }
 
   // handleReviews() {
@@ -98,44 +100,51 @@ class ReviewsApp extends Component {
 
   render() {
 
-    return (
-      <div>
-        <Grid container spacing={2}>
-          {/* <Grid item xs={12}>
+    if (this.state.status === 'loading') {
+      return <div>Loading</div>
+    }
+
+    if (this.state.status === 'loaded') {
+
+      return (
+        <div>
+          <Grid container spacing={2}>
+            {/* <Grid item xs={12}>
             <RatingBreakdown />
           </Grid> */}
-          <Grid item xs={2}>
+            <Grid item xs={2}>
 
-          </Grid>
-          <Grid item xs={2}>
-            Ratings and Reviews
-        <RatingSum ratings={this.state.product} />
-        <RatingBreakdown />
-          </Grid>
-          <Grid item xs={6}>
-            {/* This is are being sorted by relevance */}
-            <ReviewList reviews={this.state.product} count={this.state.showReviews}/>
-          </Grid>
-          <Grid item xs={2}>
+            </Grid>
+            <Grid item xs={2}>
+              Ratings and Reviews
+        <RatingSum ratings={this.state.reviewData}/>
+              <RatingBreakdown />
+            </Grid>
+            <Grid item xs={6}>
+              {/* This is are being sorted by relevance */}
+              <ReviewList reviews={this.state.reviewData}/>
+            </Grid>
+            <Grid item xs={2}>
 
-          </Grid>
-          <Grid item xs={5}>
+            </Grid>
+            <Grid item xs={5}>
 
+            </Grid>
+            <Grid item xs={2}>
+              {/* When the button is clicked, the rest of the reviews display */}
+              <button id="reviewButtons" onClick={this.handleMoreReviews}>MORE REVIEWS</button>
+            </Grid>
+            <Grid item xs={2}>
+              {/* when button clicked make a modal popup */}
+              <button id="reviewButtons" onClick={this.handleAdd}>ADD A REVIEW +</button>
+            </Grid>
+            <Grid>
+              {this.state.addButton === true ? <AddReview /> : null}
+            </Grid>
           </Grid>
-          <Grid item xs={2}>
-            {/* When the button is clicked, the rest of the reviews display */}
-            <button id="reviewButtons" onClick={this.handleMoreReviews}>MORE REVIEWS</button>
-          </Grid>
-          <Grid item xs={2}>
-            {/* when button clicked make a modal popup */}
-            <button id="reviewButtons" onClick={this.handleAdd}>ADD A REVIEW +</button>
-          </Grid>
-          <Grid>
-            {this.state.addButton === true ? <AddReview /> : null}
-          </Grid>
-        </Grid>
-      </div>
-    );
+        </div>
+      );
+    }
   }
 }
 

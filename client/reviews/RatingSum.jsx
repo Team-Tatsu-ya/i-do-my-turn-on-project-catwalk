@@ -12,11 +12,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 const RatingSum = (props) => {
-  // console.log('This is the ratings', props.ratings.results);
+  // console.log('This is the ratings dummyData', props.ratings.results);
+  // console.log("this is the whole thing", props.ratings2);
   const classes = useStyles();
 
-  const sum = props.ratings.results.map(oneRating => oneRating.rating).reduce((a, b) => a + b, 0);
-  const average = sum / props.ratings.results.length;
+  const sum = props.ratings.map(oneRating => oneRating.rating).reduce((a, b) => a + b, 0);
+  const average = Math.round((sum / props.ratings.length) * 10) / 10;
 
   return (
     <div>
