@@ -22,118 +22,109 @@ export default class RelatedList extends React.Component {
     this.changeActiveItem = this.changeActiveItem.bind(this);
     this.createCards = this.createCards.bind(this);
     this.getRelatedProducts = this.getRelatedProducts.bind(this);
+    this.getProduct = this.getProduct.bind(this);
+    this.getStyles = this.getStyles.bind(this);
+    this.getRating = this.getRating.bind(this);
+    this.requestProductInfo = this.requestProductInfo.bind(this);
   }
 
   componentDidMount() {
-    this.getRelatedProducts(this.state.current[0].id);
-    // this.setState({
-    //   relatedProducts: [],
-    //   activeItemIndex: 1
-    // }, () => {
-    //   // TODO: remove and replace with createCards() when API setup is complete
-    //   this.displayDummy();
-    //   // console.log('State in RelatedList: ', this.state);
-    // });
-
+    this.changeActiveItem(1);
+    this.getRelatedProducts(this.state.current.id);
   }
 
-  // displayDummy() {
-  //   setTimeout(() => {
-  //     this.setState({relatedProductCards: [
-  //       <ProductCard
-  //         current={this.state.current}
-  //         selected={this.state.current}
-  //         outfit={this.state.outfit}
-  //         add={this.props.add}
-  //         remove={this.props.remove}
-  //         list={this.state.list}
-  //         key="related1"
-  //       />,
-  //       <ProductCard
-  //         current={this.state.current}
-  //         selected={this.state.current}
-  //         outfit={this.state.outfit}
-  //         add={this.props.add}
-  //         remove={this.props.remove}
-  //         list={this.state.list}
-  //         key="related2"
-  //       />,
-  //       <ProductCard
-  //         current={this.state.current}
-  //         selected={this.state.current}
-  //         outfit={this.state.outfit}
-  //         add={this.props.add}
-  //         remove={this.props.remove}
-  //         list={this.state.list}
-  //         key="related3"
-  //       />,
-  //       <ProductCard
-  //         current={this.state.current}
-  //         selected={this.state.current}
-  //         outfit={this.state.outfit}
-  //         add={this.props.add}
-  //         remove={this.props.remove}
-  //         list={this.state.list}
-  //         key="related4"
-  //       />,
-  //       <ProductCard
-  //         current={this.state.current}
-  //         selected={this.state.current}
-  //         outfit={this.state.outfit}
-  //         add={this.props.add}
-  //         remove={this.props.remove}
-  //         list={this.state.list}
-  //         key="related5"
-  //       />
-  //     ]});
-  //   }, 100);
-  // }
-
-
-  // TODO: request list of related products from API & add to state at relatedProducts
   getRelatedProducts(id) {
     console.log('current in relatedProducts:', this.state.current);
     Axios.get(`http://18.224.37.110/products/${id}/related`)
       .then(res => {
         this.setState({relatedProducts: res.data});
-        console.log('getRelatedProducts successful!', this.state.relatedProducts);
+        // console.log('getRelatedProducts successful!', this.state.relatedProducts);
+        this.requestProductInfo(id);
       })
       .catch(err => {
         console.error(err);
+        // err.sendStatus(400);
       });
   }
 
-  // TODO: make 3 API requests for each related product ID (product info, product style and review metadata), save each object in an array in relatedProductInfo at the key of its product ID
+  getProduct(id) {
+    Axios.get(`http://18.224.37.110/products/${id}`)
+      .then(res => {
+        var newInfo = {};
+        Object.assign(newInfo, this.state.relatedProductInfo);
+        newInfo[id] = {};
+        newInfo[id].id = id;
+        newInfo[id].info = res.data;
+        this.setState({relatedProductInfo: newInfo});
+        // console.log('getProduct successful in related!', this.state.relatedProductInfo);
+        this.getStyles(id);
+      })
+      .catch(err => {
+        console.error(err);
+        // err.sendStatus(400);
+      });
+  }
 
-  // requestProductInfo() {
-  //   var relatedObject = {};
+  getStyles(id) {
+    Axios.get(`http://18.224.37.110/products/${id}/styles`)
+      .then(res => {
+        var newInfo = {};
+        Object.assign(newInfo, this.state.relatedProductInfo);
+        newInfo[id].photos = res.data.results[0].photos[0];
+        this.setState({relatedProductInfo: newInfo});
+        // console.log('getStyles successful in related!', this.state.relatedProductInfo);
+        // console.log('id in getStyles: ', id);
+        this.getRating(id);
+      })
+      .catch(err => {
+        console.error(err);
+        // err.sendStatus(400);
+      });
+  }
 
-  //   for (var i = 0; i < this.state.relatedProducts.length; i++) {
-  //     var id = this.state.relatedProducts[i];
-  //     var productArray = [];
-  //     // this.props.getProduct(id);
-  //     // push response object to productArray
-  //     // this.props.getStyle(id);
-  //     // push response.results[0].photos to productArray
-  //     // this.props.getRating(id);
-  //     // this.props.calculateRating(response.ratings)
-  //     // push rating to productArray
+  getRating(id) {
+    Axios.get(`http://18.224.37.110/reviews/meta/?product_id=${id}`)
+      .then(res => {
+        var ratingData = {};
+        var newInfo = {};
+        Object.assign(newInfo, this.state.relatedProductInfo);
+        ratingData = res.data.ratings;
+        // console.log('ratingData: ', ratingData);
 
-  //     relatedObject[id] = productArray;
-  //   }
+        var avgRating = 0;
+        var total = 0;
+        for (var rating in ratingData) {
+          avgRating += ratingData[rating] * rating;
+          total += ratingData[rating];
+        }
+        // console.log('id: ', id, ' total: ', total, ' avgRating: ', avgRating);
+        avgRating = Math.floor((avgRating / total) * 10) / 10;
+        newInfo[id].rating = avgRating;
 
-  //   this.setState({relatedProductInfo: relatedObject});
-  // }
+        this.setState({relatedProductInfo: newInfo});
+        console.log('getRating successful in related!', this.state.relatedProductInfo);
+        this.createCards();
+      })
+      .catch(err => {
+        console.error(err);
+        // err.sendStatus(400);
+      });
+  }
 
-
-  // TODO: use this method to map each related product to a product card in carousel
+  requestProductInfo() {
+    for (var i = 0; i < this.state.relatedProducts.length; i++) {
+      var id = this.state.relatedProducts[i];
+      this.getProduct(id);
+    }
+    // console.log('requestProductInfo successful in relatedList: ', this.state.relatedProductInfo);
+  }
 
   createCards() {
     var newCards = [];
 
-    if (this.state.outfit.length > 0) {
+    if (Object.keys(this.state.relatedProductInfo).length > 0) {
       for (var id in this.state.relatedProductInfo) {
-        newCards.push(
+        newCards.push((
           <ProductCard
             current={this.state.current}
             selected={this.state.relatedProductInfo[id]}
@@ -143,10 +134,12 @@ export default class RelatedList extends React.Component {
             list={this.state.list}
             key={'related' + id}
           />
-        );
+        ));
       }
 
+      // TODO: Need to fix this so cards are rendered properly
       this.setState({relatedProductCards: newCards});
+      console.log(this.state.relatedProductCards);
     }
   }
 

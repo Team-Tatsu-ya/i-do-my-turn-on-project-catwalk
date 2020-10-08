@@ -26,79 +26,21 @@ export default class OutfitList extends React.Component {
     this.createCards();
   }
 
-  // displayDummy() {
-  //   setTimeout(() => {
-  //     this.setState({outfitProducts: [
-  //       <AddToOutfitCard
-  //         outfit={this.state.outfit}
-  //         current={this.state.current}
-  //         add={this.props.add}
-  //         key="add-to-outfit"
-  //       />,
-  //       <ProductCard
-  //         current={this.state.current}
-  //         selected={this.state.current}
-  //         outfit={this.state.outfit}
-  //         add={this.props.add}
-  //         remove={this.props.remove}
-  //         list={this.state.list}
-  //         key="outfit1"
-  //       />,
-  //       <ProductCard
-  //         current={this.state.current}
-  //         selected={this.state.current}
-  //         outfit={this.state.outfit}
-  //         add={this.props.add}
-  //         remove={this.props.remove}
-  //         list={this.state.list}
-  //         key="outfit2"
-  //       />,
-  //       <ProductCard
-  //         current={this.state.current}
-  //         selected={this.state.current}
-  //         outfit={this.state.outfit}
-  //         add={this.props.add}
-  //         remove={this.props.remove}
-  //         list={this.state.list}
-  //         key="outfit3"
-  //       />,
-  //       <ProductCard
-  //         current={this.state.current}
-  //         selected={this.state.current}
-  //         outfit={this.state.outfit}
-  //         add={this.props.add}
-  //         remove={this.props.remove}
-  //         list={this.state.list}
-  //         key="outfit4"
-  //       />,
-  //       <ProductCard
-  //         current={this.state.current}
-  //         selected={this.state.current}
-  //         outfit={this.state.outfit}
-  //         add={this.props.add}
-  //         remove={this.props.remove}
-  //         list={this.state.list}
-  //         key="outfit5"
-  //       />
-  //     ]});
-  //   }, 0);
-  // }
-
   // TODO: use this method to pull in customer's unique outfit data and map each product to a product card in carousel
   createCards() {
     var productArray = [];
-    productArray.push(
+    productArray.push((
       <AddToOutfitCard
         outfit={this.state.outfit}
         current={this.state.current}
         add={this.props.add}
         key="add-to-outfit"
       />
-    );
+    ));
 
-    if (this.state.outfit.length > 0) {
+    if (Object.keys(this.state.outfit).length > 0) {
       for (var id in this.state.outfit) {
-        productArray.push(
+        productArray.push((
           <ProductCard
             current={this.state.current}
             selected={this.state.outfit[id]}
@@ -108,11 +50,14 @@ export default class OutfitList extends React.Component {
             list={this.state.list}
             key={'outfit' + id}
           />
-        );
+        ));
       }
     }
 
-    this.setState({outfitProducts: productArray});
+    // TODO: Need to fix this so cards are rendered properly
+    this.setState({outfitProducts: productArray}, () => {
+      console.log('outfit list state: ', this.state);
+    });
   }
 
 
@@ -126,7 +71,7 @@ export default class OutfitList extends React.Component {
       paddingLeft: 30
     };
 
-    if (this.state.current.length > 1) {
+    if (this.state.outfitProducts.length >= 1) {
       return (
         <div>
           <Typography color="textSecondary" style={headerStyle} key="outfit-header" gutterBottom>

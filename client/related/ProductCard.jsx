@@ -19,20 +19,16 @@ export default class ProductCard extends React.Component {
       showComparison: false,
     };
 
-    // this.viewState = this.viewState.bind(this);
+    this.viewState = this.viewState.bind(this);
   }
 
   componentDidMount() {
-    // this.viewState();
+    this.viewState();
   }
 
-  // viewState() {
-  //   if (this.state.selected.length > 1) {
-  //     console.log('ProductCard state: ', this.state);
-  //   } else {
-  //     viewState();
-  //   }
-  // }
+  viewState() {
+    console.log('ProductCard state: ', this.state);
+  }
 
   render() {
     if (this.state.list === 'related') {
@@ -79,12 +75,15 @@ export default class ProductCard extends React.Component {
     const imageStyle = {
       position: 'relative',
       width: '100%',
-      paddingLeft: -5
+      height: 195,
+      paddingLeft: -5,
+      objectFit: 'cover',
+      objectPosition: 'bottom'
     };
 
 
-    if (this.state.selected.length > 0) {
-      var imageUrl = this.state.selected[1].results[0].photos[0].url;
+    if (Object.keys(this.state.selected).length === 4) {
+      var imageUrl = this.state.selected.photos.url;
       // console.log('ProductCard selected in state: ', this.state.selected);
 
       return (
@@ -97,15 +96,15 @@ export default class ProductCard extends React.Component {
               <img src={imageUrl} alt="" style={imageStyle} />
             </div>
             <Typography className="productCardCategory" color="textSecondary" style={productCategoryStyle} gutterBottom>
-              {this.state.selected[0].category.toUpperCase()}
+              {this.state.selected.info.category.toUpperCase()}
             </Typography>
             <Typography className="productCardName" variant="h6" component="h2" style={productNameStyle}>
-              <b>{this.state.selected[0].name}</b>
+              <b>{this.state.selected.info.name}</b>
             </Typography>
             <Typography className="productCardPrice" color="textSecondary" style={productPriceStyle}>
-              ${this.state.selected[0].default_price}
+              ${this.state.selected.info.default_price}
             </Typography>
-            <StarRating rating={this.state.selected[2]} />
+            <StarRating rating={this.state.selected.rating} />
           </CardContent>
         </Card>
       );

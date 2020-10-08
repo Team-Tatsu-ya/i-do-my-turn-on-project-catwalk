@@ -8,17 +8,21 @@ class RelatedApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentProduct: [this.props.current, this.props.currentStyle, this.props.currentRating],
-      // currentProduct: [],
-      customerOutfit: this.props.outfit
+      currentProduct: {
+        id: this.props.currentId,
+        info: this.props.current,
+        photos: this.props.currentStyle,
+        rating: this.props.currentRating
+      },
+      outfit: this.props.outfit
     };
 
-    // this.displayDummy = this.displayDummy.bind(this);
+    this.viewState = this.viewState.bind(this);
   }
 
-  // TODO: add methods for my get requests to the Products API and for updating customer's outfit data (probably pulling from App's state)
+  // TODO: add methods for my get requests to the Products API and for updating customer's outfit data (probably pulling from App's state)?
+
   componentDidMount() {
-  //   this.displayDummy();
     this.viewState();
   }
 
@@ -26,19 +30,10 @@ class RelatedApp extends React.Component {
     console.log('RelatedApp state: ', this.state);
   }
 
-  // displayDummy() {
-  //   // var ratings = dummy.dummyRatingsMeta.ratings;
-  //   // var newRating = this.props.calculateRating(ratings);
-
-  //   this.setState({
-  //     currentProduct: [dummy.dummyProduct, dummy.styleDummy, 5]
-  //   });
-  // }
-
   render () {
     var spacing = 2;
 
-    if (Object.keys(this.state.currentProduct).length > 0) {
+    if (Object.keys(this.state.currentProduct).length === 4) {
       return (
         <div>
           <br></br>
@@ -46,13 +41,10 @@ class RelatedApp extends React.Component {
             <RelatedList
               position='center'
               current={this.state.currentProduct}
-              outfit={this.state.customerOutfit}
+              outfit={this.state.outfit}
               add={this.props.add}
               remove={this.props.remove}
-              // calculateRating={this.props.calculateRating}
-              // getProduct={this.props.getProduct}
-              // getStyle={this.props.getStyle}
-              // getRating={this.props.getRating}
+              calculateRating={this.props.calculateRating}
             />
           </div>
 
@@ -61,7 +53,7 @@ class RelatedApp extends React.Component {
             <OutfitList
               position='center'
               current={this.state.currentProduct}
-              outfit={this.state.customerOutfit}
+              outfit={this.state.outfit}
               add={this.props.add}
               remove={this.props.remove}
             />
