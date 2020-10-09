@@ -46,7 +46,7 @@ const RatingBreakdown = (props) => {
 
   console.log("this is the total TT",tt)
 
-  var data = [
+  var dataRate = [
     { ratingStar: '1 star', rating: !arrayOfRatings[0][1] ? 0 : arrayOfRatings[0][1], totalReviews: !arrayOfRatings[0][1] ? tt - 0 : tt - arrayOfRatings[0][1]},
     { ratingStar: '2 star', rating: !arrayOfRatings[0][2] ? 0 : arrayOfRatings[0][2], totalReviews: !arrayOfRatings[0][2] ? tt - 0 : tt - arrayOfRatings[0][2]},
     { ratingStar: '3 star', rating: !arrayOfRatings[0][3] ? 0 : arrayOfRatings[0][3], totalReviews: !arrayOfRatings[0][3] ? tt - 0 : tt - arrayOfRatings[0][3]},
@@ -54,7 +54,7 @@ const RatingBreakdown = (props) => {
     { ratingStar: '5 star', rating: !arrayOfRatings[0][5] ? 0 : arrayOfRatings[0][5], totalReviews: !arrayOfRatings[0][5] ? tt - 0 : tt - arrayOfRatings[0][5]}
   ];
 
-  console.log("THIS IS THE DATA FOR GRAPH" , data);
+  console.log("THIS IS THE DATA FOR GRAPH" , dataRate);
 
 
     return (
@@ -65,28 +65,28 @@ const RatingBreakdown = (props) => {
 
       <Paper>
         <Chart
-          data={data}
+          data={dataRate}
           rotated
           height={180}
         >
           <div>{getYesRecommend()}% percent that recommends this product</div>
-
+          <ArgumentAxis />
 
           <BarSeries
             name="reviews"
-            valueField="ratingStar"
-            argumentField="rating"
+            valueField="rating"
+            argumentField="ratingStar"
             barWidth={.2}
             color="green"
           />
           <BarSeries
             name="total"
-            valueField="ratingStar"
-            argumentField="totalReviews"
+            valueField="totalReviews"
+            argumentField="ratingStar"
             barWidth={.2}
             color="grey"
           />
-          {/* <Animation /> */}
+          <Animation />
           <Stack
             stacks={[
               { series: ['reviews', 'total'] },

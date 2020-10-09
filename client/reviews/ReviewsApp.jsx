@@ -16,7 +16,7 @@ class ReviewsApp extends Component {
     this.state = {
       product: dummyData,
       addButton: false,
-      productId: 10,
+      productId: 7,
       metaData: null,
       metaRecommended: false,
       reviewData: false,
