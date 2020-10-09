@@ -54,7 +54,7 @@ const RatingBreakdown = (props) => {
     { ratingStar: '5 star', rating: !arrayOfRatings[0][5] ? 0 : arrayOfRatings[0][5], totalReviews: !arrayOfRatings[0][5] ? tt - 0 : tt - arrayOfRatings[0][5]}
   ];
 
-  console.log("THIS IS THE DATA FOR GRAPH" , dataRate);
+  // console.log("THIS IS THE DATA FOR GRAPH" , dataRate);
 
 
     return (
@@ -86,6 +86,7 @@ const RatingBreakdown = (props) => {
             barWidth={.2}
             color="grey"
           />
+
           <Animation />
           <Stack
             stacks={[
