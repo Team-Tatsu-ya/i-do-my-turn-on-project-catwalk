@@ -9,13 +9,14 @@ import axios from 'axios';
 import { Grid } from '@material-ui/core';
 
 
+
 class ReviewsApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
       product: dummyData,
       addButton: false,
-      productId: 2,
+      productId: 10,
       metaData: null,
       metaRecommended: false,
       reviewData: false,
@@ -111,6 +112,7 @@ class ReviewsApp extends Component {
 
       return (
         <div>
+
           <Grid container spacing={2}>
             {/* <Grid item xs={12}>
             <RatingBreakdown />
@@ -124,7 +126,7 @@ class ReviewsApp extends Component {
               <RatingBreakdown recommend={this.state.metaRecommended} ratings={this.state.metaData}/>
             </Grid>
             <Grid item xs={6}>
-              {/* This is are being sorted by relevance */}
+              {this.state.reviewData.length} reviews, sorted by <u>relevance</u>
               <ReviewList reviews={this.state.reviewData}/>
             </Grid>
             <Grid item xs={2}>
@@ -145,6 +147,7 @@ class ReviewsApp extends Component {
               {this.state.addButton === true ? <AddReview /> : null}
             </Grid>
           </Grid>
+
         </div>
       );
     }

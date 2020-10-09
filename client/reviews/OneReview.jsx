@@ -49,7 +49,7 @@ const OneReview = (props) => {
         </Grid>
         <Grid item xs={12}>
           <div className={classes.grey}>
-          {props.individual.response !== '' || null || undefined ? <><h3>Response:</h3><h4>{props.individual.response}</h4></> : null}
+            {!props.individual.response ? null : <><h3>Response:</h3><h4>{props.individual.response}</h4></>}
           </div>
         </Grid>
         <Grid item xs={4} className={classes.size}>
