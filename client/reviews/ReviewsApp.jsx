@@ -15,8 +15,9 @@ class ReviewsApp extends Component {
     this.state = {
       product: dummyData,
       addButton: false,
-      productId: 10,
+      productId: 2,
       metaData: null,
+      metaRecommended: false,
       reviewData: false,
       status: 'loading',
       page: 1
@@ -52,6 +53,7 @@ class ReviewsApp extends Component {
     axios.all([meta, reviews, next]).then(axios.spread((...results) => {
       this.setState({
         metaData: results[0].data.ratings,
+        metaRecommended: results[0].data.recommended,
         reviewData: results[1].data.results,
         page: nextReview,
         status: 'loaded'
@@ -59,6 +61,7 @@ class ReviewsApp extends Component {
       console.log('this is the reviewData first axios', this.state.reviewData);
       console.log('this is the meta data', this.state.metaData);
       console.log('this is the page', this.state.page);
+      console.log('this is your recommended', this.state.metaRecommended);
     }))
       .catch((error) => {
         console.log(error);
@@ -117,8 +120,8 @@ class ReviewsApp extends Component {
             </Grid>
             <Grid item xs={2}>
               Ratings and Reviews
-        <RatingSum ratings={this.state.reviewData}/>
-              <RatingBreakdown />
+        <RatingSum ratings={this.state.metaData}/>
+              <RatingBreakdown recommend={this.state.metaRecommended} ratings={this.state.metaData}/>
             </Grid>
             <Grid item xs={6}>
               {/* This is are being sorted by relevance */}

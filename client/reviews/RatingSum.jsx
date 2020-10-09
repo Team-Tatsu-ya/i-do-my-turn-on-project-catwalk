@@ -16,8 +16,19 @@ const RatingSum = (props) => {
   // console.log("this is the whole thing", props.ratings2);
   const classes = useStyles();
 
-  const sum = props.ratings.map(oneRating => oneRating.rating).reduce((a, b) => a + b, 0);
-  const average = Math.round((sum / props.ratings.length) * 10) / 10;
+  var total = 0;
+  var rate = 0;
+  console.log("this is the obj you are trying to use", props.ratings);
+
+  for (var key in props.ratings) {
+    total += props.ratings[key];
+    rate += props.ratings[key] * key;
+  }
+
+  var average = Math.round((rate / total) * 10) / 10;
+
+  // const sum = props.ratings.map(oneRating => oneRating.rating).reduce((a, b) => a + b, 0);
+  // const average = Math.round((sum / props.ratings.length) * 10) / 10;
 
   return (
     <div>

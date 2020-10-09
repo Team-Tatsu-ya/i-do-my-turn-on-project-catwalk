@@ -11,27 +11,24 @@ import {
 
 import { Animation } from '@devexpress/dx-react-chart';
 
-const data = [
-  { year: '1 star', population: 2.525 },
-  { year: '2 stars', population: 3.018 },
-  { year: '3 stars', population: 3.682 },
-  { year: '4 stars', population: 4.440 },
-  { year: '5 stars', population: 5.310 }
-];
+// const data = [
+//   { rating: '1 star', total: , numberOfReviews: },
+//   { rating: '2 star', total: , numberOfReviews: },
+//   { rating: '3 star', total: , numberOfReviews: },
+//   { rating: '4 star', total: , numberOfReviews: },
+//   { rating: '5 star', total: , numberOfReviews: }
+// ];
 
+// var arrayOfobj = [
+//   {2: 2, 3: 6, 4: 4}
+// ];
 // [{rating: "", total: , numberOfReviews: }]
 
-const dummy = {
-  1: 0,
-  2: 1,
-  3: 1,
-  4: 2,
-  5: 10
-}
+
 
 //make a variable with the total number of reviews: that will be the grey bar in the bottom
 // getTotalReviews() {
-//   var values = Object.values(dummy);
+//   var values = Object.values(props.ratings);
 //   for(var i = 0; i < values.length; i++) {
 //     var total += values[i];
 //   }
@@ -40,45 +37,63 @@ const dummy = {
 
 
 
-export default class RatingBreakdown extends React.Component {
-  constructor(props) {
-    super(props);
+const RatingBreakdown = (props) => {
+  console.log("this is ratings in ratingbreakdown", props.ratings);
+  console.log("this is the recommend data in rating breakdown", props.recommend);
 
-    this.state = {
-      data,
-    };
+  var arrayOfRatings = [props.ratings];
+  console.log('****', arrayOfRatings);
+
+
+  var totalRecommend = 0;
+
+  for (var key in props.recommend) {
+    totalRecommend += props.recommend[key];
+
   }
 
-  render() {
-    const { data: chartData } = this.state;
+  var yesRecommend = Math.round((props.recommend[1] / totalRecommend) * 10) * 10;
+
 
     return (
-      <Paper>
-        <Chart
-          data={chartData}
-          rotated
-          height={180}
-        >
-          <div>%percent that recommends this product</div>
-          <ArgumentAxis />
 
-          <BarSeries
-            name="reviews"
-            valueField="population"
-            argumentField="year"
-            barWidth={.2}
-            color="green"
-          />
-          <BarSeries
-            name="total"
-            barWidth={.2}
-            color="grey"
-          />
-          {/* <Stack/> */}
-          {/* <Title text="World population" /> */}
-          <Animation />
-        </Chart>
-      </Paper>
-    );
-  }
+    <div>
+    {props.recommend[1] === undefined ? <div>{'0% of reviews recommend this product'}</div> :  <div>{yesRecommend}{'% of reviews recommend this product'}</div>}
+    </div>
+    //   <Paper>
+    //     <Chart
+    //       data={arrayOfRatings}
+    //       rotated
+    //       height={180}
+    //     >
+    //       <div>{yesRecommend}% percent that recommends this product</div>
+    //       <ArgumentAxis />
+
+    //       <BarSeries
+    //         name="reviews"
+    //         valueField="rating"
+    //         argumentField="numberOfReviews"
+    //         barWidth={.2}
+    //         color="green"
+    //       />
+    //       <BarSeries
+    //         name="total"
+    //         valueField="rating"
+    //         argumentField="total"
+    //         barWidth={.2}
+    //         color="grey"
+    //       />
+    //       <Animation />
+    //       <Stack
+    //         stacks={[
+    //           { series: ['total', 'reviews'] },
+    //         ]}
+    //       />
+    //     </Chart>
+    //   </Paper>
+    // );
+    )
+
 }
+
+export default RatingBreakdown;

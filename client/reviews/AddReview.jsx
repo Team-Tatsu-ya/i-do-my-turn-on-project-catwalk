@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     // overflow: 'hidden',
     overflow: 'scroll',
     height:'105%',
+    // width: '60%'
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
@@ -61,9 +62,9 @@ export default function TransitionsModal() {
               Close
             </button> */}
 
-            <div>
+            {/* <div>
               Subtitle ---> "name of product"
-            </div>
+            </div> */}
 
             <div>
               <Rating

@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
   },
   grey: {
     background: 'lightgrey'
+  },
+  size: {
+    'font-size': '12px'
   }
 }));
 
@@ -46,12 +49,12 @@ const OneReview = (props) => {
         </Grid>
         <Grid item xs={12}>
           <div className={classes.grey}>
-          {props.individual.response !== "" ? <><h3>Response:</h3><h4>{props.individual.response}</h4></> : null}
+          {props.individual.response !== '' || null || undefined ? <><h3>Response:</h3><h4>{props.individual.response}</h4></> : null}
           </div>
         </Grid>
-        {/* <Grid item xs={4}>
-          Helpful counter and report
-        </Grid> */}
+        <Grid item xs={4} className={classes.size}>
+          <p>Helpful? <u>Yes</u> ({props.individual.helpfulness}) |  <u>Report</u></p>
+        </Grid>
       </Grid>
       <hr className={"solid"}></hr>
     </div>
@@ -59,8 +62,6 @@ const OneReview = (props) => {
 };
 
 export default OneReview;
-
-
 
 
 // const OneReview = (props) => {
