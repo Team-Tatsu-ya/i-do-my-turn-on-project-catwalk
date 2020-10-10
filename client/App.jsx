@@ -154,7 +154,7 @@ class App extends React.Component {
           <NavBar search={this.searchProductNames}/>
           <br></br>
           <div id="details">
-            <Details currentId={this.state.currentId} key={'details-app' + newKey}/>
+            <Details currentId={this.state.currentId} key={'details-app' + newKey} currentRating={this.state.currentRating} addToOutfit={this.state.addToOutfit}/>
           </div>
           <div id="related">
             <RelatedApp

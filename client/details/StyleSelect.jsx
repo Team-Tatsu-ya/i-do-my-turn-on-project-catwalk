@@ -8,7 +8,6 @@ import StarBorderIcon from "@material-ui/icons/StarBorder";
 
 const StyleSelect = (props) => (
   <div>
-    {console.log(props)}
     <div id="price">$ {props.currentProduct.default_price}</div>
     <div id="styletext">
       <strong>style: </strong> {props.currentStyle.name}
@@ -45,10 +44,7 @@ const StyleSelect = (props) => (
             </option>
             {Object.keys(props.currentStyle.skus).map((sku) => {
               return (
-                <option
-                  value={sku}
-                  className="selectsize"
-                >
+                <option value={sku} className="selectsize">
                   {props.currentStyle.skus[sku].size}
                 </option>
               );
@@ -58,7 +54,7 @@ const StyleSelect = (props) => (
       </Grid>
       <Grid item xs={4}>
         <div className="dropdown">
-          <select className="selectqty">
+          <select className="selectqty" onChange={props.handleQtyChange}>
             {props.quantities.map((num) => {
               if (props.currentStyle.skus[props.currentSku] !== undefined) {
                 if (num <= props.currentStyle.skus[props.currentSku].quantity) {
@@ -75,12 +71,18 @@ const StyleSelect = (props) => (
       </Grid>
     </Grid>
     <div id="addto">
-      <Button variant="outlined" endIcon={<AddIcon />} id="addbag">
-        add to bag
-      </Button>
-      <IconButton>
-        <StarBorderIcon className="squared" id="staricon" />
-      </IconButton>
+      <Grid container direction="row" spacing={0}>
+        <Grid item xs={9}>
+          <Button variant="outlined" endIcon={<AddIcon />} id="addbag" onClick={props.handleAddToCart}>
+            add to bag
+          </Button>
+        </Grid>
+        <Grid item xs={3}>
+          <IconButton onClick={props.addToOutfit}>
+            <StarBorderIcon className="squared" id="staricon" />
+          </IconButton>
+        </Grid>
+      </Grid>
     </div>
   </div>
 );
