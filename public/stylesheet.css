@@ -74,6 +74,7 @@
   font-family: 'Lato', sans-serif;
 }
 
+
 #relatedlist {
   max-width: 900px;
   min-width: 850px;
@@ -85,3 +86,19 @@
   min-width: 850px;
   margin: auto;
 }
+
+#reviewButtons {
+  background-color: grey; /* Green */
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+#reviewInput {
+  width: 300px;
+}
+
