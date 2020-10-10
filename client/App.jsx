@@ -10,6 +10,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      apiUrl: 'http://3.137.191.193',
+      allProducts: [],
+      allProductNames: [],
       currentId: 9,
       currentProduct: {},
       currentProductStyle: {},
@@ -19,6 +22,7 @@ class App extends React.Component {
       currentRating: 5
     };
 
+    this.getAllProducts = this.getAllProducts.bind(this);
     this.getCurrentProduct = this.getCurrentProduct.bind(this);
     this.getCurrentStyles = this.getCurrentStyles.bind(this);
     this.getCurrentReviewMeta = this.getCurrentReviewMeta.bind(this);
@@ -26,18 +30,31 @@ class App extends React.Component {
     this.removeFromOutfit = this.removeFromOutfit.bind(this);
     this.calculateRating = this.calculateRating.bind(this);
     this.changeId = this.changeId.bind(this);
+    this.searchProductNames = this.searchProductNames.bind(this);
   }
 
   componentDidMount() {
     this.getCurrentProduct(this.state.currentId);
     this.getCurrentStyles(this.state.currentId);
     this.getCurrentReviewMeta(this.state.currentId);
+    this.getAllProducts();
   }
 
   // Get all products request for search bar
+  getAllProducts() {
+    Axios.get(`${this.state.apiUrl}/products/?page=1?count=50`)
+      .then(res => {
+        this.setState({allProducts: res.data});
+        console.log('getAllProducts successful!', this.state.allProducts);
+      })
+      .catch(err => {
+        console.error(err);
+        // res.sendStatus(400);   <--- we need something to end the promise
+      });
+  }
 
   getCurrentProduct(id) {
-    Axios.get(`http://18.224.37.110/products/${id}`)
+    Axios.get(`${this.state.apiUrl}/products/${id}`)
       .then(res => {
         this.setState({currentProduct: res.data});
         console.log('getCurrentProduct successful!', this.state.currentProduct);
@@ -49,7 +66,7 @@ class App extends React.Component {
   }
 
   getCurrentStyles(id) {
-    Axios.get(`http://18.224.37.110/products/${id}/styles`)
+    Axios.get(`${this.state.apiUrl}/products/${id}/styles`)
       .then(res => {
         this.setState({currentProductStyle: res.data});
         console.log('getCurrentStyles successful!', this.state.currentProductStyle);
@@ -61,7 +78,7 @@ class App extends React.Component {
   }
 
   getCurrentReviewMeta(id) {
-    Axios.get(`http://18.224.37.110/reviews/meta/?product_id=${id}`)
+    Axios.get(`${this.state.apiUrl}/reviews/meta/?product_id=${id}`)
       .then(res => {
         this.setState({currentRatingData: res.data.ratings}, () => {
           this.calculateRating(this.state.currentRatingData);
@@ -86,6 +103,15 @@ class App extends React.Component {
     this.setState({currentRating: avgRating});
   }
 
+  searchProductNames(input) {
+    var productList = this.state.allProducts;
+    for (var i = 0; i < productList.length; i++) {
+      if (productList[i].name.startsWith(input)) {
+        this.changeId(productList[i].id);
+      }
+    }
+  }
+
   addToOutfit() {
     var newOutfit = {};
     Object.assign(newOutfit, this.state.customerOutfit);
@@ -93,7 +119,7 @@ class App extends React.Component {
     var productToAdd = {};
     productToAdd.id = this.state.currentId;
     productToAdd.info = this.state.currentProduct;
-    productToAdd.photos = this.state.currentProductStyle.results[0].photos[0];
+    productToAdd.photos = this.state.currentProductStyle.results[0];
     productToAdd.rating = this.state.currentRating;
 
     newOutfit[this.state.currentId] = productToAdd;
@@ -125,7 +151,7 @@ class App extends React.Component {
 
       return (
         <div>
-          <NavBar />
+          <NavBar search={this.searchProductNames}/>
           <br></br>
           <div id="details">
             <Details currentId={this.state.currentId} key={'details-app' + newKey}/>
@@ -135,7 +161,7 @@ class App extends React.Component {
               outfit={this.state.customerOutfit}
               currentId={this.state.currentId}
               current={this.state.currentProduct}
-              currentStyle={this.state.currentProductStyle.results[0].photos[0]}
+              currentStyle={this.state.currentProductStyle.results[0]}
               currentRating={this.state.currentRating}
               add={this.addToOutfit}
               remove={this.removeFromOutfit}
