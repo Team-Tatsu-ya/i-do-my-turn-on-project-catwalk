@@ -45,10 +45,14 @@
 }
 
 #title {
-  font-size: 30px;
+  font-size: 24px;
   font-weight: 700;
+
   color: #525252;
   margin-bottom: 10px;
+
+  color: white;
+
 }
 
 #price {
@@ -125,6 +129,7 @@
   font-weight: 300;
   color: #525252;
   font-family: 'Lato', sans-serif;
+
   margin-left: 15px;
 }
 
@@ -176,3 +181,35 @@
   width: 100px;
   overflow: scroll;
 } */
+
+}
+
+
+#relatedlist {
+  max-width: 900px;
+  min-width: 850px;
+  margin: auto;
+}
+
+#outfitlist {
+  max-width: 900px;
+  min-width: 850px;
+  margin: auto;
+}
+
+#reviewButtons {
+  background-color: grey; /* Green */
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+#reviewInput {
+  width: 300px;
+}
+
+

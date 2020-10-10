@@ -55,8 +55,8 @@ var styleDummy = {
       "default?": 1,
       "photos": [
         {
-          "thumbnail_url": "urlplaceholder/style_1_photo_number_thumbnail.jpg",
-          "url": "urlplaceholder/style_1_photo_number.jpg"
+          "thumbnail_url": "https://media.jdsports.com/i/jdsports/BQ4630_101_P1?$Main_gray$&bg=rgb(237,237,237)",
+          "url": "https://media.jdsports.com/i/jdsports/BQ4630_101_P1?$Main_gray$&bg=rgb(237,237,237)"
         },
         {
           "thumbnail_url": "urlplaceholder/style_1_photo_number_thumbnail.jpg",
@@ -143,10 +143,39 @@ var dummyRatings = {
   ]
 };
 
+var dummyRatingsMeta = {
+  "product_id": "2",
+  "ratings": {
+    1: 1,
+    2: 1,
+    3: 1,
+    4: 2,
+    5: 3
+  },
+  "recommended": {
+    0: 5
+  },
+  "characteristics": {
+    "Size": {
+      "id": 14,
+      "value": "4.0000"
+    },
+    "Width": {
+      "id": 15,
+      "value": "3.5000"
+    },
+    "Comfort": {
+      "id": 16,
+      "value": "4.0000"
+    },
+  }
+};
+
 module.exports = {
   productDummyList,
   dummyProduct,
   styleDummy,
   relatedDummy,
-  dummyRatings
+  dummyRatings,
+  dummyRatingsMeta
 };

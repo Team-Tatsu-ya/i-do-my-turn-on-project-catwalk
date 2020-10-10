@@ -12,16 +12,28 @@ const useStyles = makeStyles((theme) => ({
 
 
 const RatingSum = (props) => {
-  // console.log('This is the ratings', props.ratings.results);
+  // console.log('This is the ratings dummyData', props.ratings.results);
+  // console.log("this is the whole thing", props.ratings2);
   const classes = useStyles();
 
-  const sum = props.ratings.results.map(oneRating => oneRating.rating).reduce((a, b) => a + b, 0);
-  const average = sum / props.ratings.results.length;
+  var total = 0;
+  var rate = 0;
+  console.log("this is the obj you are trying to use", props.ratings);
+
+  for (var key in props.ratings) {
+    total += props.ratings[key];
+    rate += props.ratings[key] * key;
+  }
+
+  var average = Math.round((rate / total) * 10) / 10;
+
+  // const sum = props.ratings.map(oneRating => oneRating.rating).reduce((a, b) => a + b, 0);
+  // const average = Math.round((sum / props.ratings.length) * 10) / 10;
 
   return (
     <div>
       <Grid container spacing={2} className={classes.grid}>
-        <Grid item xs={2} className={classes.font}>
+        <Grid item xs={3} className={classes.font}>
           {average}
         </Grid>
         <Grid item xs={2}>

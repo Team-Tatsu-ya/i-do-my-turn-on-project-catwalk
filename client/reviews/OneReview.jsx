@@ -2,6 +2,7 @@ import React from 'react';
 import Rating from '@material-ui/lab/Rating';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
+import moment from 'moment';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -12,12 +13,14 @@ const useStyles = makeStyles((theme) => ({
   nameDate: {
     float: 'right'
   },
-  response: {
-    background: 'lightgray',
-    'font-weight': 'normal'
-  },
   bold: {
     'font-weight': 'bold'
+  },
+  grey: {
+    background: 'lightgrey'
+  },
+  size: {
+    'font-size': '12px'
   }
 }));
 
@@ -39,17 +42,19 @@ const OneReview = (props) => {
 
         </Grid>
         <Grid item xs={4} className={classes.nameDate}>
-          {props.individual.reviewer_name}, {props.individual.date}
+          {props.individual.reviewer_name}, {moment(props.individual.date).format("LL")}
         </Grid>
         <Grid item xs={12} className={classes.bold}>
           {props.individual.body}
         </Grid>
-        <Grid item xs={12} className={classes.response}>
-          {props.individual.response !== "" ? <><h3>Response:</h3><h4>{props.individual.response}</h4></> : null}
+        <Grid item xs={12}>
+          <div className={classes.grey}>
+            {!props.individual.response ? null : <><h3>Response:</h3><h4>{props.individual.response}</h4></>}
+          </div>
         </Grid>
-        {/* <Grid item xs={4}>
-          Helpful counter and report
-        </Grid> */}
+        <Grid item xs={4} className={classes.size}>
+          <p>Helpful? <u>Yes</u> ({props.individual.helpfulness}) |  <u>Report</u></p>
+        </Grid>
       </Grid>
       <hr className={"solid"}></hr>
     </div>
@@ -57,8 +62,6 @@ const OneReview = (props) => {
 };
 
 export default OneReview;
-
-
 
 
 // const OneReview = (props) => {
