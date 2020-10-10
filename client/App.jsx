@@ -37,7 +37,7 @@ class App extends React.Component {
   // Get all products request for search bar
 
   getCurrentProduct(id) {
-    Axios.get(`http://18.224.37.110/products/${id}`)
+    Axios.get(`http://3.137.191.193/products/${id}`)
       .then(res => {
         this.setState({currentProduct: res.data});
         console.log('getCurrentProduct successful!', this.state.currentProduct);
@@ -49,7 +49,7 @@ class App extends React.Component {
   }
 
   getCurrentStyles(id) {
-    Axios.get(`http://18.224.37.110/products/${id}/styles`)
+    Axios.get(`http://3.137.191.193/products/${id}/styles`)
       .then(res => {
         this.setState({currentProductStyle: res.data});
         console.log('getCurrentStyles successful!', this.state.currentProductStyle);
@@ -61,7 +61,7 @@ class App extends React.Component {
   }
 
   getCurrentReviewMeta(id) {
-    Axios.get(`http://18.224.37.110/reviews/meta/?product_id=${id}`)
+    Axios.get(`http://3.137.191.193/reviews/meta/?product_id=${id}`)
       .then(res => {
         this.setState({currentRatingData: res.data.ratings}, () => {
           this.calculateRating(this.state.currentRatingData);
@@ -128,7 +128,7 @@ class App extends React.Component {
           <NavBar />
           <br></br>
           <div id="details">
-            <Details currentId={this.state.currentId} key={'details-app' + newKey}/>
+            <Details currentId={this.state.currentId} key={'details-app' + newKey} currentRating={this.state.currentRating} addToOutfit={this.state.addToOutfit}/>
           </div>
           <div id="related">
             <RelatedApp

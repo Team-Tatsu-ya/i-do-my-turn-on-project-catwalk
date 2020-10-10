@@ -121,26 +121,11 @@ class Details extends React.Component {
       currentProduct: sampleData,
       currentStyles: sampleStyles,
       currentStyle: sampleStyle,
+      currentQty: 1,
       currentSku: '1',
       cart: [],
+      cartValue: 0,
       size: 'select size',
-      // currentPicUrl:
-      //   "https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80",
-      // pics: [
-      //   "https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80",
-      //   "https://images.unsplash.com/photo-1534011546717-407bced4d25c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80",
-      //   "https://images.unsplash.com/photo-1549831243-a69a0b3d39e0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2775&q=80",
-      //   "https://images.unsplash.com/photo-1527522883525-97119bfce82d?ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80",
-      //   "https://images.unsplash.com/photo-1556648202-80e751c133da?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80",
-      // ],
-      // thumbnails: [
-      //   "https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80",
-      //   "https://images.unsplash.com/photo-1534011546717-407bced4d25c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80",
-      //   "https://images.unsplash.com/photo-1549831243-a69a0b3d39e0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80",
-      //   "https://images.unsplash.com/photo-1527522883525-97119bfce82d?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
-      //   "https://images.unsplash.com/photo-1556648202-80e751c133da?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80",
-      // ],
-      // currentPic: 0,
       quantities: [
         "1",
         "2",
@@ -159,11 +144,11 @@ class Details extends React.Component {
         "15",
       ],
     };
-    // this.getPictures = this.getPictures.bind(this);
-    // this.handleLeftArrowClick = this.handleLeftArrowClick.bind(this);
-    // this.handleRightArrowClick = this.handleRightArrowClick.bind(this);
     this.handleStyleChange = this.handleStyleChange.bind(this);
     this.handleSizeChange = this.handleSizeChange.bind(this);
+    this.handleQtyChange = this.handleQtyChange.bind(this);
+    this.handleAddToCart = this.handleAddToCart.bind(this);
+    this.calculateCartValue = this.calculateCartValue.bind(this);
   }
 
   handleStyleChange(style) {
@@ -183,9 +168,43 @@ class Details extends React.Component {
     }
   }
 
+  handleQtyChange(event) {
+    if (this.state.currentQty !== event.target.value) {
+      var newSku = event.target.value;
+      this.setState({
+        currentQty: newQty
+      });
+    }
+  }
+
+  handleAddToCart() {
+    var newCart = [... this.state.cart];
+    var newItem = {
+      product: this.state.currentProduct,
+      style: this.state.currentStyle,
+      quantity: this.state.currentQty,
+      size: this.state.currentSku,
+    };
+    newCart.push(newItem);
+    var newCartValue = this.calculateCartValue(newCart);
+    this.setState({
+      cart: newCart,
+      cartValue: newCartValue
+    });
+  }
+
+  calculateCartValue(cart) {
+    var grandTotal = 0;
+    for (var i = 0; i < cart.length; i++) {
+      var itemTotal = cart[i].style.original_price;
+      grandTotal += itemTotal;
+    }
+    return grandTotal;
+  }
+
   componentDidMount() {
     axios
-      .get(`http://18.224.37.110/products/1/styles`)
+      .get(`http://3.137.191.193/products/${this.props.currentId}/styles`)
       .then((res) => {
         var currentStyles = res.data;
         this.setState({
@@ -193,7 +212,7 @@ class Details extends React.Component {
           currentStyle: res.data.results[0],
         });
         axios
-          .get(`http://18.224.37.110/products/1`)
+          .get(`http://3.137.191.193/products/${this.props.currentId}`)
           .then((res) => {
             var currentProduct = res.data;
             this.setState({ currentProduct });
@@ -204,64 +223,11 @@ class Details extends React.Component {
       });
   }
 
-  // getPictures() {
-  //   console.log('hello world');
-  //   var pics = [];
-  //   var thumbnails = [];
-  //   if (this.state.currentStyles) {
-  //     for (var i = 0; i < this.state.currentStyles.length; i++) {
-  //       if (this.state.currentStyles[i].photos) {
-  //         for (var k = 0; k < this.state.currentStyles[i].photos.length; i++) {
-  //           pics.push(this.state.currentStyles[i].photos[k].url);
-  //           thumbnails.push(this.state.currentStyles[i].photos[k].thumbnail_url);
-  //         }
-  //       }
-  //     }
-  //   }
-  //   this.setState({
-  //     pics: pics,
-  //     thumbnails: thumbnails,
-  //   });
-  // }
-
-  // handleLeftArrowClick() {
-  //   var index = this.state.currentPic;
-  //   if (this.state.currentPic === 0) {
-  //     var newIndex = this.state.pics.length - 1;
-  //     this.setState({
-  //       currentPic: newIndex,
-  //       currentPicUrl: this.state.pics[newIndex],
-  //     });
-  //   } else {
-  //     var newIndex = index - 1;
-  //     this.setState({
-  //       currentPic: newIndex,
-  //       currentPicUrl: this.state.pics[newIndex],
-  //     });
-  //   }
-  // }
-
-  // handleRightArrowClick() {
-  //   var index = this.state.currentPic;
-  //   if (this.state.currentPic === this.state.pics.length - 1) {
-  //     var newIndex = 0;
-  //     this.setState({
-  //       currentPic: newIndex,
-  //       currentPicUrl: this.state.pics[newIndex],
-  //     });
-  //   } else {
-  //     var newIndex = index + 1;
-  //     this.setState({
-  //       currentPic: newIndex,
-  //       currentPicUrl: this.state.pics[newIndex],
-  //     });
-  //   }
-  // }
-
 
   render() {
     return (
       <div>
+        {console.log(this.props.currentRating)}
         <Grid
           container
           direction="row"
@@ -281,11 +247,6 @@ class Details extends React.Component {
                 <div id="gallery">
                   <Paper elevation={0}>
                     <Gallery
-                      // handleLeftArrowClick={this.handleLeftArrowClick}
-                      // handleRightArrowClick={this.handleRightArrowClick}
-                      // pics={this.state.pics}
-                      // thumbnails={this.state.thumbnails}
-                      // currentPicUrl={this.state.currentPicUrl}
                       currentStyles={this.state.currentStyles}
                     />
                   </Paper>
@@ -302,24 +263,24 @@ class Details extends React.Component {
                 <div id="overview">
                   <Paper elevation={0}>
                     <div id="heading">
-                      <Heading currentProduct={this.state.currentProduct} />
+                      <Heading currentProduct={this.state.currentProduct} currentRating={this.props.currentRating} />
                     </div>
                     <div id="styleselect">
                       <StyleSelect
-                        tinyImage="https://www.thesprucepets.com/thmb/6xUaoRttXiA5XVTrsjWIwLsbNo8=/2248x2248/smart/filters:no_upscale()/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
                         currentProduct={this.state.currentProduct}
                         currentStyles={this.state.currentStyles}
                         currentStyle={this.state.currentStyle}
+                        currentQty={this.state.currentQty}
                         currentSize={this.state.currentSize}
                         quantities={this.state.quantities}
                         currentSku={this.state.currentSku}
-                        // currentQty={this.state.currentStyle.skus[this.state.currentSku].quantity}
+                        handleQtyChange={this.handleQtyChange}
                         handleStyleChange={this.handleStyleChange}
                         handleSizeChange={this.handleSizeChange}
+                        handleAddToCart={this.handleAddToCart}
+                        calculateCartValue={this.calculateCartValue}
                         size={this.state.size}
-                        // sizes={Object.keys(this.state.currentStyle.skus)}
-                        // changeStyle={this.changeStyle}
-                        // thumbnails={this.state.thumbnails}
+                        addToOutfit={this.state.addToOutfit}
                       />
                     </div>
                   </Paper>
