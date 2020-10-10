@@ -1,4 +1,6 @@
 import React from 'react';
+import Rating from '@material-ui/lab/Rating';
+
 const Heading = (props) => (
   <div>
     <div id="stars">☆☆☆☆☆ <u>Read all reviews</u></div>
