@@ -1,10 +1,8 @@
 import React from 'react';
-// import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Typography from '@material-ui/core/Typography';
 import CheckIcon from '@material-ui/icons/Check';
-
-// Instructions for creating modal window: https://material-ui.com/components/modal/
+import CancelIcon from '@material-ui/icons/Cancel';
 
 export default class Comparison extends React.Component {
   constructor(props) {
@@ -12,38 +10,54 @@ export default class Comparison extends React.Component {
     this.state = {
       show: this.props.show,
       current: this.props.current,
-      selected: this.props.selected
+      selected: this.props.selected,
+      charObj: {}
     };
 
-    this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.createCharObject = this.createCharObject.bind(this);
   }
 
-  // TODO: methods for pulling in characteristics data for both products
-
-  handleOpen () {
-    this.setState({show: true});
+  componentDidMount() {
+    this.createCharObject();
   }
 
   handleClose () {
-    this.setState({show: false});
+    this.props.close();
   }
 
-  // showModal (e) {
-  //   this.setState({show: true});
-  // }
+  // TODO: method to make modal close on click outside modal, still working on this
+  handleClick (e) {
+    if (e.target !== this) {
+      this.handleClose();
+    }
+  }
+
+  createCharObject() {
+    var newObj = {};
+
+    this.state.current.info.features.map(char => {
+      newObj[char.feature] = {current: char.value};
+    });
+
+    this.state.selected.info.features.map(char => {
+      if (newObj[char.feature] === undefined) {
+        newObj[char.feature] = {selected: char.value};
+      } else {
+        newObj[char.feature].selected = char.value;
+      }
+
+    });
+
+    this.setState({charObj: newObj});
+  }
 
   render () {
     const modalStyle = {
       display: 'flex',
       alignItems: 'center',
-      position: 'fixed',
-      width: 500,
-      background: '#FFFFFF',
-      // border: '1px solid #808080',
-      // transition: 'easeOut',
-      // transform: 'scale(1)',
-      visibility: 'visible'
+      justifyContent: 'center',
     };
 
     const paper = {
@@ -52,10 +66,7 @@ export default class Comparison extends React.Component {
       width: 'auto',
       height: 'auto',
       border: '0.5px solid #808080',
-      top: '50%',
-      left: '50%',
       padding: 15
-      // transform: translate(-50%, -50%)
     };
 
     const headerStyle = {
@@ -68,7 +79,8 @@ export default class Comparison extends React.Component {
 
     const characteristicStyle = {
       fontSize: 11,
-      alignContent: 'center'
+      alignContent: 'center',
+      textAlign: 'center'
     };
 
     const checkStyle = {
@@ -77,78 +89,102 @@ export default class Comparison extends React.Component {
       color: '#808080'
     };
 
+    const buttonStyle = {
+      position: 'absolute',
+      zIndex: 1,
+      right: 0,
+      paddingRight: 8,
+      paddingBottom: 8,
+      color: '#DCDCDC',
+    };
+
+    const characteristicList = Object.keys(this.state.charObj).map(feature => {
+      var currentVal = this.state.charObj[feature].current;
+      if (currentVal === true) {
+        currentVal = (<CheckIcon/>);
+      } else if (currentVal === 'null') {
+        currentVal = '';
+      } else {
+        currentVal = (
+          <Typography color="textSecondary" style={characteristicStyle} gutterBottom>
+            {this.state.charObj[feature].current}
+          </Typography>
+        );
+      }
+
+      var selectedVal = this.state.charObj[feature].selected;
+      if (selectedVal === true) {
+        selectedVal = (<CheckIcon/>);
+      } else if (selectedVal === 'null') {
+        selectedVal = '';
+      } else {
+        selectedVal = (
+          <Typography color="textSecondary" style={characteristicStyle} gutterBottom>
+            {this.state.charObj[feature].selected}
+          </Typography>
+        );
+      }
+
+      return (
+        <tr key={feature}>
+          <td>
+            {currentVal}
+          </td>
+          <td>
+            <Typography color="textSecondary" style={characteristicStyle} gutterBottom>
+              {feature}
+            </Typography>
+          </td>
+          <td>
+            {selectedVal}
+          </td>
+        </tr>
+      );
+    });
+
     const body = (
       <div style={paper}>
+        <CancelIcon style={buttonStyle} size="small" onClick={this.props.close}/>
         <Typography color="textSecondary" style={headerStyle} gutterBottom>
           COMPARING
         </Typography>
 
         <table>
           <thead>
-            <tr>
+            <tr key="header-row">
               <th>
                 <Typography variant="h6" style={nameStyle} color="textSecondary" component="h2">
-                  {/* need to align left */}
-                  <b>Current Product Name</b>
+                  <b>{this.state.current.info.name}</b>
                 </Typography>
               </th>
               <th></th>
               <th>
                 <Typography variant="h6" component="h2" color="textSecondary" style={nameStyle}>
-                  {/* need to align right */}
-                  <b>Selected Product Name</b>
+                  <b>{this.state.selected.info.name}</b>
                 </Typography>
               </th>
             </tr>
           </thead>
-          {/* need to map over join table of characteristics of both products and create a table row with each characteristic in column 2 */}
           <tbody>
-            <tr>
-              <td><CheckIcon style={checkStyle} /></td>
-              <td>
-                <Typography color="textSecondary" style={characteristicStyle} gutterBottom>
-                  Characteristic 1
-                </Typography>
-              </td>
-              <td><CheckIcon style={checkStyle} /></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>
-                <Typography color="textSecondary" style={characteristicStyle} gutterBottom>
-                  Characteristic 2
-                </Typography>
-              </td>
-              <td><CheckIcon style={checkStyle} /></td>
-            </tr>
-            <tr>
-              <td><CheckIcon style={checkStyle} /></td>
-              <td>
-                <Typography color="textSecondary" style={characteristicStyle} gutterBottom>
-                  Characteristic 3
-                </Typography>
-              </td>
-              <td></td>
-            </tr>
-            {/* columns 1 and 3 will note characteristics for each product (true will render <CheckIcon/> and values will display) */}
+            {characteristicList}
           </tbody>
         </table>
       </div>
     );
 
-    if (this.props.show === true) {
+    if (this.props.show === true && Object.keys(this.state.current).length === 4 && Object.keys(this.state.selected).length === 4) {
       return (
-        <div style={modalStyle}>
+        <div>
           <Modal
-            open={this.handleOpen}
+            open={true}
             onClose={this.handleClose}
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description">
+            onClick={this.handleClick}
+            style={modalStyle}>
             {body}
           </Modal>
         </div>
       );
-    } else {
+    } else if (this.props.show === false) {
       return (null);
     }
   }
