@@ -66,13 +66,13 @@ export default function SearchAppBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" >
+      <AppBar position="static" color="primary">
         <Toolbar>
-          {/* put logo here */}
+          <img src="https://media.giphy.com/media/0RbzopZZhmK17dYt7o/giphy.gif" alt="Animated Ramen" height="60"/>
           <Typography id="title" className={classes.title} noWrap variant="h6">
             Maruchan Instant Duds
           </Typography>
-          <div className={classes.search}>
+          {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -83,8 +83,9 @@ export default function SearchAppBar() {
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
+              onChange={(event) => { this.props.search(event.target.value); }}
             />
-          </div>
+          </div> */}
         </Toolbar>
       </AppBar>
     </div>

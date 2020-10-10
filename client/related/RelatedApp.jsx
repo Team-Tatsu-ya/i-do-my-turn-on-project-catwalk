@@ -16,17 +16,6 @@ class RelatedApp extends React.Component {
       },
       outfit: this.props.outfit
     };
-
-    this.viewState = this.viewState.bind(this);
-  }
-
-  componentDidMount() {
-    this.viewState();
-  }
-
-  // TODO: remove when app is finalized
-  viewState() {
-    console.log('RelatedApp state: ', this.state);
   }
 
   render () {

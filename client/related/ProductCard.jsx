@@ -86,9 +86,12 @@ export default class ProductCard extends React.Component {
       objectPosition: 'bottom'
     };
 
-
     if (this.state.selected && Object.keys(this.state.selected).length === 4) {
-      var imageUrl = this.state.selected.photos.url;
+      if (this.state.selected.id === 2) {
+        var imageUrl = 'https://149354000.v2.pressablecdn.com/wp-content/uploads/2020/08/104900630_3168377346542044_7756744666053666797_o.jpg';
+      } else {
+        imageUrl = this.state.selected.photos.photos[0].url;
+      }
 
       return (
         <Card className="productCard" variant="outlined" style={productCardStyle}>
@@ -98,7 +101,7 @@ export default class ProductCard extends React.Component {
                 {button}
               </IconButton>
               <div onClick={this.changeProduct}>
-                <img src={imageUrl} alt="" style={imageStyle} value={this.state.selected.id} />
+                <img src={imageUrl} alt={this.state.selected.info.name} style={imageStyle} value={this.state.selected.id} />
               </div>
             </div>
             <Typography className="productCardCategory" color="textSecondary" style={productCategoryStyle} gutterBottom>
