@@ -19,16 +19,9 @@ export default class XButton extends React.Component {
     this.removeProduct = this.removeProduct.bind(this);
   }
 
-  removeProduct(product) {
-    var outfit = this.state.outfit;
-    for (var i = 0; i < outfit.length; i++) {
-      if (outfit[i] === this.state.selected) {
-        var newOutfit = outfit.slice();
-        outfit.splice(i, 1);
-        this.setState({outfit: newOutfit});
-      }
-    }
-    console.log('Outfit after removing: ', outfit);
+  removeProduct() {
+    this.props.remove(this.state.selected.id);
+    // Need to figure out how to re-render outfit list after removing product
   }
 
   render() {

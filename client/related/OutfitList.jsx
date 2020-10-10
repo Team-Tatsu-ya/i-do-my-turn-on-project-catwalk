@@ -13,7 +13,7 @@ export default class OutfitList extends React.Component {
       current: this.props.current,
       outfit: this.props.outfit,
       outfitProducts: [],
-      activeItemIndex: 0
+      activeItemIndex: 0,
     };
 
     this.changeActiveItem = this.changeActiveItem.bind(this);
@@ -25,12 +25,11 @@ export default class OutfitList extends React.Component {
     this.createCards();
   }
 
-  // TODO: use this method to pull in customer's unique outfit data and map each product to a product card in carousel
   createCards() {
     var productArray = [];
     productArray.push((
       <AddToOutfitCard
-        outfit={this.state.outfit}
+        outfit={this.props.outfit}
         current={this.state.current}
         add={this.props.add}
         key="add-to-outfit"
@@ -39,29 +38,33 @@ export default class OutfitList extends React.Component {
 
     if (Object.keys(this.state.outfit).length > 0) {
       for (var id in this.state.outfit) {
-        productArray.push((
-          <ProductCard
-            current={this.state.current}
-            selected={this.state.outfit[id]}
-            outfit={this.state.outfit}
-            add={this.props.add}
-            remove={this.props.remove}
-            list={'outfit'}
-            key={'outfit' + id}
-          />
-        ));
+        if (this.state.outfit[id] !== undefined) {
+          productArray.push((
+            <ProductCard
+              current={this.state.current}
+              selected={this.state.outfit[id]}
+              outfit={this.props.outfit}
+              add={this.props.add}
+              remove={this.props.remove}
+              change={this.props.change}
+              list={'outfit'}
+              key={'outfit' + id}
+            />
+          ));
+        }
       }
     }
 
-    // TODO: Need to fix this so cards are rendered properly
-    this.setState({outfitProducts: productArray}, () => {
-      console.log('outfit list state: ', this.state);
-    });
+    this.setState({outfitProducts: productArray});
   }
 
 
   changeActiveItem(activeItemIndex) {
     this.setState({activeItemIndex: activeItemIndex});
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return {outfit: nextProps.outfit};
   }
 
   render () {
@@ -92,6 +95,7 @@ export default class OutfitList extends React.Component {
             rightChevron={'>'}
             leftChevron={'<'}
             outsideChevon={false}
+            key={Object.keys(this.state.outfit) || 'empty-outfit'}
           >
             {this.state.outfitProducts}
           </ItemsCarousel>

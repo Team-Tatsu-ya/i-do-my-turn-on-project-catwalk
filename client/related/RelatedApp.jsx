@@ -20,12 +20,11 @@ class RelatedApp extends React.Component {
     this.viewState = this.viewState.bind(this);
   }
 
-  // TODO: add methods for my get requests to the Products API and for updating customer's outfit data (probably pulling from App's state)?
-
   componentDidMount() {
     this.viewState();
   }
 
+  // TODO: remove when app is finalized
   viewState() {
     console.log('RelatedApp state: ', this.state);
   }
@@ -41,10 +40,12 @@ class RelatedApp extends React.Component {
             <RelatedList
               position='center'
               current={this.state.currentProduct}
-              outfit={this.state.outfit}
+              outfit={this.props.outfit}
               add={this.props.add}
               remove={this.props.remove}
               calculateRating={this.props.calculateRating}
+              change={this.props.change}
+              key={this.state.currentProduct.id}
             />
           </div>
 
@@ -53,9 +54,11 @@ class RelatedApp extends React.Component {
             <OutfitList
               position='center'
               current={this.state.currentProduct}
-              outfit={this.state.outfit}
+              outfit={this.props.outfit}
               add={this.props.add}
               remove={this.props.remove}
+              change={this.props.change}
+              key={Object.keys(this.props.outfit) || 'empty-outfit'}
             />
           </div>
           <br></br>

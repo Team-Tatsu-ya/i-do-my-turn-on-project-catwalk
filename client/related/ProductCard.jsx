@@ -19,15 +19,21 @@ export default class ProductCard extends React.Component {
       showComparison: false,
     };
 
-    this.viewState = this.viewState.bind(this);
+    // this.viewState = this.viewState.bind(this);
+    this.changeProduct = this.changeProduct.bind(this);
   }
 
   componentDidMount() {
-    this.viewState();
+    // this.viewState();
   }
 
-  viewState() {
-    console.log('ProductCard state: ', this.state);
+  // TODO: remove this after app is finalized
+  // viewState() {
+  //   console.log('ProductCard state: ', this.state);
+  // }
+
+  changeProduct(newId) {
+    this.props.change(this.state.selected.id);
   }
 
   render() {
@@ -37,15 +43,14 @@ export default class ProductCard extends React.Component {
       );
     } else {
       button = (
-        <XButton selected={this.state.selected} outfit={this.state.outfit} remove={this.props.remove} />
+        <XButton selected={this.state.selected} outfit={this.state.outfit} remove={this.props.remove}/>
       );
     }
 
     const productCardStyle = {
       minWidth: 200,
       maxWidth: 200,
-      minHeight: 300,
-      maxHeight: 315
+      height: 315
     };
 
     const productCategoryStyle = {
@@ -82,9 +87,8 @@ export default class ProductCard extends React.Component {
     };
 
 
-    if (Object.keys(this.state.selected).length === 4) {
+    if (this.state.selected && Object.keys(this.state.selected).length === 4) {
       var imageUrl = this.state.selected.photos.url;
-      // console.log('ProductCard selected in state: ', this.state.selected);
 
       return (
         <Card className="productCard" variant="outlined" style={productCardStyle}>
@@ -93,12 +97,14 @@ export default class ProductCard extends React.Component {
               <IconButton style={buttonStyle}>
                 {button}
               </IconButton>
-              <img src={imageUrl} alt="" style={imageStyle} />
+              <div onClick={this.changeProduct}>
+                <img src={imageUrl} alt="" style={imageStyle} value={this.state.selected.id} />
+              </div>
             </div>
             <Typography className="productCardCategory" color="textSecondary" style={productCategoryStyle} gutterBottom>
               {this.state.selected.info.category.toUpperCase()}
             </Typography>
-            <Typography className="productCardName" variant="h6" component="h2" style={productNameStyle}>
+            <Typography className="productCardName" variant="h6" component="h2" style={productNameStyle} onClick={this.changeProduct}>
               <b>{this.state.selected.info.name}</b>
             </Typography>
             <Typography className="productCardPrice" color="textSecondary" style={productPriceStyle}>

@@ -1,19 +1,20 @@
 import React from 'react';
+import NavBar from './NavBar.jsx';
 import ReviewsApp from './reviews/ReviewsApp.jsx';
 import RelatedApp from './related/RelatedApp.jsx';
 import Details from './details/DetailsApp.jsx';
 import Typography from '@material-ui/core/Typography';
-import dummy from './related/dummy_data.js';
 import Axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentId: 15,
+      currentId: 9,
       currentProduct: {},
       currentProductStyle: {},
       customerOutfit: {},
+      outfitArray: [],
       currentRatingData: {},
       currentRating: 5
     };
@@ -24,6 +25,7 @@ class App extends React.Component {
     this.addToOutfit = this.addToOutfit.bind(this);
     this.removeFromOutfit = this.removeFromOutfit.bind(this);
     this.calculateRating = this.calculateRating.bind(this);
+    this.changeId = this.changeId.bind(this);
   }
 
   componentDidMount() {
@@ -32,18 +34,17 @@ class App extends React.Component {
     this.getCurrentReviewMeta(this.state.currentId);
   }
 
-  // Get all products?
+  // Get all products request for search bar
 
   getCurrentProduct(id) {
     Axios.get(`http://18.224.37.110/products/${id}`)
       .then(res => {
         this.setState({currentProduct: res.data});
         console.log('getCurrentProduct successful!', this.state.currentProduct);
-        // res.sendStatus(200);
       })
       .catch(err => {
         console.error(err);
-        // res.sendStatus(400);
+        // res.sendStatus(400);   <--- we need something to end the promise
       });
   }
 
@@ -52,26 +53,24 @@ class App extends React.Component {
       .then(res => {
         this.setState({currentProductStyle: res.data});
         console.log('getCurrentStyles successful!', this.state.currentProductStyle);
-        // res.sendStatus(200);
       })
       .catch(err => {
         console.error(err);
-        // res.sendStatus(400);
+        // res.sendStatus(400);   <--- we need something to end the promise
       });
   }
 
-  getCurrentReviewMeta() {
-    Axios.get(`http://18.224.37.110/reviews/meta/?product_id=${this.state.currentId}`)
+  getCurrentReviewMeta(id) {
+    Axios.get(`http://18.224.37.110/reviews/meta/?product_id=${id}`)
       .then(res => {
         this.setState({currentRatingData: res.data.ratings}, () => {
           this.calculateRating(this.state.currentRatingData);
           console.log('getCurrentReviewMeta successful!', this.state.currentRatingData);
-          // res.sendStatus(200);
         });
       })
       .catch(err => {
         console.error(err);
-        // res.sendStatus(400);
+        // res.sendStatus(400);   <--- we need something to end the promise
       });
   }
 
@@ -98,28 +97,38 @@ class App extends React.Component {
     productToAdd.rating = this.state.currentRating;
 
     newOutfit[this.state.currentId] = productToAdd;
-    this.setState({customerOutfit: newOutfit}, console.log('App state after adding to outfit: ', this.state));
+    this.setState({customerOutfit: newOutfit}, () => {
+      console.log('App state after adding: ', this.state);
+    });
   }
 
   removeFromOutfit(id) {
     var newOutfit = {};
     Object.assign(newOutfit, this.state.customerOutfit);
 
-    newOutfit[id] = undefined;
-    this.setState({customerOutfit: newOutfit});
+    delete newOutfit[id];
+    this.setState({customerOutfit: newOutfit}, () => { console.log('App state after removing from outfit: ', this.state); });
   }
 
+  changeId(id) {
+    this.setState({currentId: id}, () => {
+      this.getCurrentProduct(id);
+      this.getCurrentStyles(id);
+      this.getCurrentReviewMeta(id);
+    });
+    console.log('Id has been changed: ', this.state.currentProduct);
+  }
 
   render () {
     if (Object.keys(this.state.currentProduct).length > 0 && Object.keys(this.state.currentProductStyle).length > 0) {
+      var newKey = this.state.currentProductStyle.product_id;
+
       return (
         <div>
-          <Typography id="title">
-            Maruchan Instant Duds
-          </Typography>
+          <NavBar />
           <br></br>
           <div id="details">
-            <Details currentId={this.state.currentId}/>
+            <Details currentId={this.state.currentId} key={'details-app' + newKey}/>
           </div>
           <div id="related">
             <RelatedApp
@@ -130,10 +139,12 @@ class App extends React.Component {
               currentRating={this.state.currentRating}
               add={this.addToOutfit}
               remove={this.removeFromOutfit}
+              change={this.changeId}
+              key={'related-app' + newKey}
             />
           </div>
           <div id="reviews">
-            <ReviewsApp currentId={this.state.currentId}/>
+            <ReviewsApp currentId={this.state.currentId} key={'reviews-app' + newKey}/>
           </div>
         </div>
       );

@@ -20,15 +20,13 @@ export default class AddToOutfitCard extends React.Component {
 
   addProduct() {
     this.props.add();
-    console.log('Outfit after adding: ', this.state.outfit);
   }
 
   render() {
     const outfitCardStyle = {
       minWidth: 200,
       maxWidth: 200,
-      minHeight: 300,
-      maxHeight: 315,
+      height: 315,
       backgroundColor: '#EBEBEB'
     };
 
@@ -49,7 +47,7 @@ export default class AddToOutfitCard extends React.Component {
       fontSize: 50
     };
 
-    if (this.state.current.length > 0) {
+    if (Object.keys(this.state.current).length === 4) {
       return (
         <Card className="productCard" variant="outlined" style={outfitCardStyle}>
           <CardContent>

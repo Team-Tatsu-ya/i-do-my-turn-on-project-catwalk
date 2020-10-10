@@ -25,6 +25,7 @@ export default class RelatedList extends React.Component {
     this.getStyles = this.getStyles.bind(this);
     this.getRating = this.getRating.bind(this);
     this.requestProductInfo = this.requestProductInfo.bind(this);
+    this.changeProduct = this.changeProduct.bind(this);
   }
 
   componentDidMount() {
@@ -33,16 +34,14 @@ export default class RelatedList extends React.Component {
   }
 
   getRelatedProducts(id) {
-    console.log('current in relatedProducts:', this.state.current);
     Axios.get(`http://18.224.37.110/products/${id}/related`)
       .then(res => {
         this.setState({relatedProducts: res.data});
-        // console.log('getRelatedProducts successful!', this.state.relatedProducts);
         this.requestProductInfo(id);
       })
       .catch(err => {
         console.error(err);
-        // err.sendStatus(400);
+        // err.sendStatus(400);   <--- we need something to end the promise
       });
   }
 
@@ -55,12 +54,11 @@ export default class RelatedList extends React.Component {
         newInfo[id].id = id;
         newInfo[id].info = res.data;
         this.setState({relatedProductInfo: newInfo});
-        // console.log('getProduct successful in related!', this.state.relatedProductInfo);
         this.getStyles(id);
       })
       .catch(err => {
         console.error(err);
-        // err.sendStatus(400);
+        // err.sendStatus(400);   <--- we need something to end the promise
       });
   }
 
@@ -71,13 +69,11 @@ export default class RelatedList extends React.Component {
         Object.assign(newInfo, this.state.relatedProductInfo);
         newInfo[id].photos = res.data.results[0].photos[0];
         this.setState({relatedProductInfo: newInfo});
-        // console.log('getStyles successful in related!', this.state.relatedProductInfo);
-        // console.log('id in getStyles: ', id);
         this.getRating(id);
       })
       .catch(err => {
         console.error(err);
-        // err.sendStatus(400);
+        // err.sendStatus(400);   <--- we need something to end the promise
       });
   }
 
@@ -88,7 +84,6 @@ export default class RelatedList extends React.Component {
         var newInfo = {};
         Object.assign(newInfo, this.state.relatedProductInfo);
         ratingData = res.data.ratings;
-        // console.log('ratingData: ', ratingData);
 
         var avgRating = 0;
         var total = 0;
@@ -96,17 +91,16 @@ export default class RelatedList extends React.Component {
           avgRating += ratingData[rating] * rating;
           total += ratingData[rating];
         }
-        // console.log('id: ', id, ' total: ', total, ' avgRating: ', avgRating);
+
         avgRating = Math.floor((avgRating / total) * 10) / 10;
         newInfo[id].rating = avgRating;
 
         this.setState({relatedProductInfo: newInfo});
-        console.log('getRating successful in related!', this.state.relatedProductInfo);
         this.createCards();
       })
       .catch(err => {
         console.error(err);
-        // err.sendStatus(400);
+        // err.sendStatus(400);   <--- we need something to end the promise
       });
   }
 
@@ -115,7 +109,10 @@ export default class RelatedList extends React.Component {
       var id = this.state.relatedProducts[i];
       this.getProduct(id);
     }
-    // console.log('requestProductInfo successful in relatedList: ', this.state.relatedProductInfo);
+  }
+
+  changeProduct(value) {
+    this.props.change(value);
   }
 
   createCards() {
@@ -130,15 +127,16 @@ export default class RelatedList extends React.Component {
             outfit={this.state.outfit}
             add={this.props.add}
             remove={this.props.remove}
+            change={this.props.change}
+            value={parseInt(id)}
+            // onClick={this.changeProduct}
             list={'related'}
             key={'related' + id}
           />
         ));
       }
 
-      // TODO: Need to fix this so cards are rendered properly
       this.setState({relatedProductCards: newCards});
-      console.log(this.state.relatedProductCards);
     }
   }
 
@@ -174,6 +172,7 @@ export default class RelatedList extends React.Component {
             rightChevron={'>'}
             leftChevron={'<'}
             outsideChevon={false}
+            key={this.state.current.id}
           >
             {this.state.relatedProductCards}
           </ItemsCarousel>

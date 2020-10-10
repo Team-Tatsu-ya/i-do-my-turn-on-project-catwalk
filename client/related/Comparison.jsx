@@ -10,35 +10,54 @@ export default class Comparison extends React.Component {
     this.state = {
       show: this.props.show,
       current: this.props.current,
-      selected: this.props.selected
+      selected: this.props.selected,
+      charObj: {}
     };
 
     this.handleClose = this.handleClose.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.createCharObject = this.createCharObject.bind(this);
   }
 
-  // TODO: methods for pulling in characteristics data for both products
+  componentDidMount() {
+    this.createCharObject();
+  }
 
   handleClose () {
     this.props.close();
   }
 
-  // method to make modal close on click outside modal, still working on this
+  // TODO: method to make modal close on click outside modal, still working on this
   handleClick (e) {
     if (e.target !== this) {
       this.handleClose();
     }
   }
 
-  // TODO: map over join table of characteristics of both products and create a table row with each characteristic in column 2
+  createCharObject() {
+    var newObj = {};
 
-  // TODO: make columns 1 and 3 render <CheckIcon/> for true or values associated with each characteristic
+    this.state.current.info.features.map(char => {
+      newObj[char.feature] = {current: char.value};
+    });
+
+    this.state.selected.info.features.map(char => {
+      if (newObj[char.feature] === undefined) {
+        newObj[char.feature] = {selected: char.value};
+      } else {
+        newObj[char.feature].selected = char.value;
+      }
+
+    });
+
+    this.setState({charObj: newObj});
+  }
 
   render () {
     const modalStyle = {
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
     };
 
     const paper = {
@@ -60,7 +79,8 @@ export default class Comparison extends React.Component {
 
     const characteristicStyle = {
       fontSize: 11,
-      alignContent: 'center'
+      alignContent: 'center',
+      textAlign: 'center'
     };
 
     const checkStyle = {
@@ -78,6 +98,50 @@ export default class Comparison extends React.Component {
       color: '#DCDCDC',
     };
 
+    const characteristicList = Object.keys(this.state.charObj).map(feature => {
+      var currentVal = this.state.charObj[feature].current;
+      if (currentVal === true) {
+        currentVal = (<CheckIcon/>);
+      } else if (currentVal === 'null') {
+        currentVal = '';
+      } else {
+        currentVal = (
+          <Typography color="textSecondary" style={characteristicStyle} gutterBottom>
+            {this.state.charObj[feature].current}
+          </Typography>
+        );
+      }
+
+      var selectedVal = this.state.charObj[feature].selected;
+      if (selectedVal === true) {
+        selectedVal = (<CheckIcon/>);
+      } else if (selectedVal === 'null') {
+        selectedVal = '';
+      } else {
+        selectedVal = (
+          <Typography color="textSecondary" style={characteristicStyle} gutterBottom>
+            {this.state.charObj[feature].selected}
+          </Typography>
+        );
+      }
+
+      return (
+        <tr key={feature}>
+          <td>
+            {currentVal}
+          </td>
+          <td>
+            <Typography color="textSecondary" style={characteristicStyle} gutterBottom>
+              {feature}
+            </Typography>
+          </td>
+          <td>
+            {selectedVal}
+          </td>
+        </tr>
+      );
+    });
+
     const body = (
       <div style={paper}>
         <CancelIcon style={buttonStyle} size="small" onClick={this.props.close}/>
@@ -87,7 +151,7 @@ export default class Comparison extends React.Component {
 
         <table>
           <thead>
-            <tr>
+            <tr key="header-row">
               <th>
                 <Typography variant="h6" style={nameStyle} color="textSecondary" component="h2">
                   <b>{this.state.current.info.name}</b>
@@ -102,40 +166,13 @@ export default class Comparison extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><CheckIcon style={checkStyle} /></td>
-              <td>
-                <Typography color="textSecondary" style={characteristicStyle} gutterBottom>
-                  Characteristic 1
-                </Typography>
-              </td>
-              <td><CheckIcon style={checkStyle} /></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>
-                <Typography color="textSecondary" style={characteristicStyle} gutterBottom>
-                  Characteristic 2
-                </Typography>
-              </td>
-              <td><CheckIcon style={checkStyle} /></td>
-            </tr>
-            <tr>
-              <td><CheckIcon style={checkStyle} /></td>
-              <td>
-                <Typography color="textSecondary" style={characteristicStyle} gutterBottom>
-                  Characteristic 3
-                </Typography>
-              </td>
-              <td></td>
-            </tr>
+            {characteristicList}
           </tbody>
         </table>
       </div>
     );
 
     if (this.props.show === true && Object.keys(this.state.current).length === 4 && Object.keys(this.state.selected).length === 4) {
-      // console.log('Comparison state true: ', this.state);
       return (
         <div>
           <Modal
@@ -148,7 +185,6 @@ export default class Comparison extends React.Component {
         </div>
       );
     } else if (this.props.show === false) {
-      // console.log('Comparison state false: ', this.state);
       return (null);
     }
   }
