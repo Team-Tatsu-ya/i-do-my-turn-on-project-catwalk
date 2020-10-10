@@ -36,7 +36,7 @@ const RatingBreakdown = (props) => {
   const getTotalReviews = () => {
     var total = 0;
     var values = Object.values(props.ratings);
-    for(var i = 0; i < values.length; i++) {
+    for (var i = 0; i < values.length; i++) {
       total += values[i];
     }
     return total;
@@ -44,58 +44,56 @@ const RatingBreakdown = (props) => {
 
   var tt = getTotalReviews();
 
-  console.log("this is the total TT",tt)
+  console.log("this is the total TT", tt)
 
   var dataRate = [
-    { ratingStar: '1 star', rating: !arrayOfRatings[0][1] ? 0 : arrayOfRatings[0][1], totalReviews: !arrayOfRatings[0][1] ? tt - 0 : tt - arrayOfRatings[0][1]},
-    { ratingStar: '2 star', rating: !arrayOfRatings[0][2] ? 0 : arrayOfRatings[0][2], totalReviews: !arrayOfRatings[0][2] ? tt - 0 : tt - arrayOfRatings[0][2]},
-    { ratingStar: '3 star', rating: !arrayOfRatings[0][3] ? 0 : arrayOfRatings[0][3], totalReviews: !arrayOfRatings[0][3] ? tt - 0 : tt - arrayOfRatings[0][3]},
-    { ratingStar: '4 star', rating: !arrayOfRatings[0][4] ? 0 : arrayOfRatings[0][4], totalReviews: !arrayOfRatings[0][4] ? tt - 0 : tt - arrayOfRatings[0][4]},
-    { ratingStar: '5 star', rating: !arrayOfRatings[0][5] ? 0 : arrayOfRatings[0][5], totalReviews: !arrayOfRatings[0][5] ? tt - 0 : tt - arrayOfRatings[0][5]}
+    { ratingStar: '1 star', rating: !arrayOfRatings[0][1] ? 0 : arrayOfRatings[0][1], totalReviews: !arrayOfRatings[0][1] ? tt - 0 : tt - arrayOfRatings[0][1] },
+    { ratingStar: '2 star', rating: !arrayOfRatings[0][2] ? 0 : arrayOfRatings[0][2], totalReviews: !arrayOfRatings[0][2] ? tt - 0 : tt - arrayOfRatings[0][2] },
+    { ratingStar: '3 star', rating: !arrayOfRatings[0][3] ? 0 : arrayOfRatings[0][3], totalReviews: !arrayOfRatings[0][3] ? tt - 0 : tt - arrayOfRatings[0][3] },
+    { ratingStar: '4 star', rating: !arrayOfRatings[0][4] ? 0 : arrayOfRatings[0][4], totalReviews: !arrayOfRatings[0][4] ? tt - 0 : tt - arrayOfRatings[0][4] },
+    { ratingStar: '5 star', rating: !arrayOfRatings[0][5] ? 0 : arrayOfRatings[0][5], totalReviews: !arrayOfRatings[0][5] ? tt - 0 : tt - arrayOfRatings[0][5] }
   ];
 
   // console.log("THIS IS THE DATA FOR GRAPH" , dataRate);
 
 
-    return (
+  return (
 
-    // <div>
-    // {props.recommend[1] === undefined ? <div>{'0% of reviews recommend this product'}</div> :  <div>{getYesRecommend()}{'% of reviews recommend this product'}</div>}
-    //  </div>
+    <Paper>
+      <Chart
+        data={dataRate}
+        rotated
+        height={180}
+      >
+        <div id="robotoFont">
+          {props.recommend[1] === undefined ? <div>{'0% of reviews recommend this product'}</div> : <div>{getYesRecommend()}{'% of reviews recommend this product'}</div>}
+        </div>
+        <ArgumentAxis />
 
-      <Paper>
-        <Chart
-          data={dataRate}
-          rotated
-          height={180}
-        >
-          <div>{getYesRecommend()}% percent that recommends this product</div>
-          <ArgumentAxis />
+        <BarSeries
+          name="reviews"
+          valueField="rating"
+          argumentField="ratingStar"
+          barWidth={.2}
+          color="green"
+        />
+        <BarSeries
+          name="total"
+          valueField="totalReviews"
+          argumentField="ratingStar"
+          barWidth={.2}
+          color="grey"
+        />
 
-          <BarSeries
-            name="reviews"
-            valueField="rating"
-            argumentField="ratingStar"
-            barWidth={.2}
-            color="green"
-          />
-          <BarSeries
-            name="total"
-            valueField="totalReviews"
-            argumentField="ratingStar"
-            barWidth={.2}
-            color="grey"
-          />
-
-          <Animation />
-          <Stack
-            stacks={[
-              { series: ['reviews', 'total'] },
-            ]}
-          />
-        </Chart>
-          </Paper>
-    );
+        <Animation />
+        <Stack
+          stacks={[
+            { series: ['reviews', 'total'] },
+          ]}
+        />
+      </Chart>
+    </Paper>
+  );
 };
 
 export default RatingBreakdown;

@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     // overflow: 'hidden',
     overflow: 'scroll',
-    height:'105%',
+    height: '105%',
     // width: '60%'
   },
   paper: {
@@ -74,133 +74,136 @@ export default function TransitionsModal() {
                 onChange={(event, newValue) => {
                   setValue(newValue);
                 }}
-            />
+              />
             </div>
 
             <div>
-            <p>Characteristics</p>
-            <p>size</p>
-              <input type="radio" name="size"/>
+              <p>Characteristics *</p>
+              <label>size:   </label>
+              <input type="radio" name="size" required />
               <label>1</label>
-              <input type="radio" name="size"/>
+              <input type="radio" name="size" />
               <label>2</label>
-              <input type="radio" name="size"/>
+              <input type="radio" name="size" />
               <label>3</label>
-              <input type="radio" name="size"/>
+              <input type="radio" name="size" />
               <label>4</label>
-              <input type="radio" name="size"/>
+              <input type="radio" name="size" />
+              <label>5</label>
+            </div>
+            <br></br>
+            <div>
+              <label>width:   </label>
+              <input type="radio" name="width" />
+              <label>1</label>
+              <input type="radio" name="width" />
+              <label>2</label>
+              <input type="radio" name="width" />
+              <label>3</label>
+              <input type="radio" name="width" />
+              <label>4</label>
+              <input type="radio" name="width" />
+              <label>5</label>
+            </div>
+            <br></br>
+            <div>
+              <label>comfort:   </label>
+              <input type="radio" name="comfort" />
+              <label>1</label>
+              <input type="radio" name="comfort" />
+              <label>2</label>
+              <input type="radio" name="comfort" />
+              <label>3</label>
+              <input type="radio" name="comfort" />
+              <label>4</label>
+              <input type="radio" name="comfort" />
+              <label>5</label>
+            </div>
+            <br></br>
+            <div>
+              <label>quality:   </label>
+              <input type="radio" name="quality" />
+              <label>1</label>
+              <input type="radio" name="quality" />
+              <label>2</label>
+              <input type="radio" name="quality" />
+              <label>3</label>
+              <input type="radio" name="quality" />
+              <label>4</label>
+              <input type="radio" name="quality" />
+              <label>5</label>
+            </div>
+            <br></br>
+            <div>
+              <label>length:   </label>
+              <input type="radio" name="length" />
+              <label>1</label>
+              <input type="radio" name="length" />
+              <label>2</label>
+              <input type="radio" name="length" />
+              <label>3</label>
+              <input type="radio" name="length" />
+              <label>4</label>
+              <input type="radio" name="length" />
+              <label>5</label>
+            </div>
+            <br></br>
+            <div>
+              <label>fit:   </label>
+              <input type="radio" name="fit" />
+              <label>1</label>
+              <input type="radio" name="fit" />
+              <label>2</label>
+              <input type="radio" name="fit" />
+              <label>3</label>
+              <input type="radio" name="fit" />
+              <label>4</label>
+              <input type="radio" name="fit" />
               <label>5</label>
             </div>
 
             <div>
-            <p>width</p>
-              <input type="radio" name="width"/>
-              <label>1</label>
-              <input type="radio" name="width"/>
-              <label>2</label>
-              <input type="radio" name="width"/>
-              <label>3</label>
-              <input type="radio" name="width"/>
-              <label>4</label>
-              <input type="radio" name="width"/>
-              <label>5</label>
-            </div>
-
-            <div>
-            <p>comfort</p>
-              <input type="radio" name="comfort"/>
-              <label>1</label>
-              <input type="radio" name="comfort"/>
-              <label>2</label>
-              <input type="radio" name="comfort"/>
-              <label>3</label>
-              <input type="radio" name="comfort"/>
-              <label>4</label>
-              <input type="radio" name="comfort"/>
-              <label>5</label>
-            </div>
-
-            <div>
-            <p>quality</p>
-              <input type="radio" name="quality"/>
-              <label>1</label>
-              <input type="radio" name="quality"/>
-              <label>2</label>
-              <input type="radio" name="quality"/>
-              <label>3</label>
-              <input type="radio" name="quality"/>
-              <label>4</label>
-              <input type="radio" name="quality"/>
-              <label>5</label>
-            </div>
-
-            <div>
-            <p>length</p>
-              <input type="radio" name="length"/>
-              <label>1</label>
-              <input type="radio" name="length"/>
-              <label>2</label>
-              <input type="radio" name="length"/>
-              <label>3</label>
-              <input type="radio" name="length"/>
-              <label>4</label>
-              <input type="radio" name="length"/>
-              <label>5</label>
-            </div>
-
-            <div>
-            <p>fit</p>
-              <input type="radio" name="fit"/>
-              <label>1</label>
-              <input type="radio" name="fit"/>
-              <label>2</label>
-              <input type="radio" name="fit"/>
-              <label>3</label>
-              <input type="radio" name="fit"/>
-              <label>4</label>
-              <input type="radio" name="fit"/>
-              <label>5</label>
-            </div>
-
-            <div>
-              <p>Do you recommend this product?</p>
-              <input type="radio" id="male" name="recommend" value="male"/>
+              <p>Do you recommend this product? *</p>
+              <input type="radio" id="male" name="recommend" value="male" />
               <label>Yes</label>
-              <input type="radio" id="female" name="recommend" value="female"/>
+              <input type="radio" id="female" name="recommend" value="female" />
               <label>No</label>
             </div>
-
+            <br />
             <Form>
-              <div>Review Body</div>
               <Form.Group controlId="formBasicBody">
-                <Form.Label></Form.Label>
-                <textarea rows="5" cols="80" maxLength="1000" placeholder="Why did you like the product or not?"></textarea>
+                <Form.Label>Review Body *</Form.Label>
+                <br />
+                <textarea rows="5" cols="80" minLength="50" maxLength="1000" placeholder="Why did you like the product or not?"></textarea>
                 <Form.Text className="text-muted"></Form.Text>
               </Form.Group>
-            </Form>
 
-            <Form>
+
+
               <Form.Group controlId="formBasicNickname">
-                <Form.Label>What is your nickname</Form.Label>
+                <Form.Label>What is your nickname *</Form.Label>
+                <br />
                 <input type="text" id="reviewInput" placeholder="Example:jackson11"></input>
                 {/* <textarea rows="1" cols="40" type="nickname" maxLength="60" placeholder="Example:jackson11"></textarea> */}
-                <br></br>
+                <br />
                 <Form.Text className="text-muted">
-                For privacy reasons, do not use your full name or email address
+                  For privacy reasons, do not use your full name or email address
                 </Form.Text>
               </Form.Group>
-            </Form>
 
-            <Form>
+
+
               <Form.Group controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
+                <Form.Label>Email address *</Form.Label>
+                <br />
                 <input type="text" id="reviewInput" placeholder="Example:jackson11@gmail.com"></input>
                 {/* <textarea rows="1" cols="40" type="email" maxLength="60" placeholder="Example:jackson11@gmail.com"></textarea> */}
                 <br></br>
                 <Form.Text className="text-muted">
-                For authentication reasons, you will not be emailed
+                  For authentication reasons, you will not be emailed
                 </Form.Text>
               </Form.Group>
+              <br></br>
             </Form>
 
             <button>Submit review</button>
@@ -210,3 +213,26 @@ export default function TransitionsModal() {
     </div >
   );
 }
+
+
+
+
+{/* <Modal>
+  <Form>
+    //each individual form group
+
+    //characteristics mapping through and making radio buttons
+
+    //do you recommend this product, radio button
+
+    //Review Body
+
+    //What is your nickname
+
+    //Email address
+
+    //Submit button
+    <Button variant="primary">Primary</Button>
+
+  </Form>
+</Modal> */}
