@@ -31,7 +31,7 @@ const RatingSum = (props) => {
   // const average = Math.round((sum / props.ratings.length) * 10) / 10;
 
   return (
-    <div>
+    <div id="robotoFont">
       <Grid container spacing={2} className={classes.grid}>
         <Grid item xs={3} className={classes.font}>
           {average}

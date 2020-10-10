@@ -16,7 +16,7 @@ class ReviewsApp extends Component {
     this.state = {
       product: dummyData,
       addButton: false,
-      productId: 7,
+      productId: 1,
       metaData: null,
       metaRecommended: false,
       reviewData: false,
@@ -48,9 +48,9 @@ class ReviewsApp extends Component {
   //get a review
   getReviews() {
     var nextReview = this.state.page + 1;
-    const meta = axios.get(`http://18.224.37.110/reviews/meta/?product_id=${this.state.productId}`);
-    const reviews = axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.productId}&count=2&page=${this.state.page}`);
-    const next = axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.productId}&count=2&page=${nextReview}`);
+    const meta = axios.get(`http://3.137.191.193/reviews/meta/?product_id=${this.state.productId}`);
+    const reviews = axios.get(`http://3.137.191.193/reviews/?product_id=${this.state.productId}&count=2&page=${this.state.page}`);
+    const next = axios.get(`http://3.137.191.193/reviews/?product_id=${this.state.productId}&count=2&page=${nextReview}`);
     axios.all([meta, reviews, next]).then(axios.spread((...results) => {
       this.setState({
         metaData: results[0].data.ratings,
@@ -71,8 +71,8 @@ class ReviewsApp extends Component {
 
   getNextReviews() {
     var nextReview = this.state.page + 1;
-    const reviews = axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.productId}&count=2&page=${this.state.page}`);
-    const next = axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.productId}&count=2&page=${nextReview}`);
+    const reviews = axios.get(`http://3.137.191.193/reviews/?product_id=${this.state.productId}&count=2&page=${this.state.page}`);
+    const next = axios.get(`http://3.137.191.193/reviews/?product_id=${this.state.productId}&count=2&page=${nextReview}`);
     axios.all([reviews, next]).then(axios.spread((...results) => {
       this.setState({
         reviewData: [...this.state.reviewData, ...results[0].data.results],
@@ -111,7 +111,7 @@ class ReviewsApp extends Component {
     if (this.state.status === 'loaded') {
 
       return (
-        <div>
+        <div id="RobotoFont">
 
           <Grid container spacing={2}>
             {/* <Grid item xs={12}>

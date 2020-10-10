@@ -10,6 +10,7 @@ export default class RelatedList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      apiUrl: 'http://3.137.191.193',
       current: this.props.current,
       outfit: this.props.outfit,
       relatedProducts: [],
@@ -34,7 +35,7 @@ export default class RelatedList extends React.Component {
   }
 
   getRelatedProducts(id) {
-    Axios.get(`http://18.224.37.110/products/${id}/related`)
+    Axios.get(`${this.state.apiUrl}/products/${id}/related`)
       .then(res => {
         this.setState({relatedProducts: res.data});
         this.requestProductInfo(id);
@@ -46,7 +47,7 @@ export default class RelatedList extends React.Component {
   }
 
   getProduct(id) {
-    Axios.get(`http://18.224.37.110/products/${id}`)
+    Axios.get(`${this.state.apiUrl}/products/${id}`)
       .then(res => {
         var newInfo = {};
         Object.assign(newInfo, this.state.relatedProductInfo);
@@ -63,11 +64,11 @@ export default class RelatedList extends React.Component {
   }
 
   getStyles(id) {
-    Axios.get(`http://18.224.37.110/products/${id}/styles`)
+    Axios.get(`${this.state.apiUrl}/products/${id}/styles`)
       .then(res => {
         var newInfo = {};
         Object.assign(newInfo, this.state.relatedProductInfo);
-        newInfo[id].photos = res.data.results[0].photos[0];
+        newInfo[id].photos = res.data.results[0];
         this.setState({relatedProductInfo: newInfo});
         this.getRating(id);
       })
@@ -78,7 +79,7 @@ export default class RelatedList extends React.Component {
   }
 
   getRating(id) {
-    Axios.get(`http://18.224.37.110/reviews/meta/?product_id=${id}`)
+    Axios.get(`${this.state.apiUrl}/reviews/meta/?product_id=${id}`)
       .then(res => {
         var ratingData = {};
         var newInfo = {};
