@@ -16,10 +16,10 @@
 
 ## Usage
 
-> Run npm install in terminal
-> Run npm run start-server in terminal
-> Open a second terminal and run npm run start-react
-> Navigate to http://localhost:1337/ in browser
+1. Run npm install in terminal
+1. Run npm run start-server in terminal
+1. Open a second terminal and run npm run start-react
+1. Navigate to http://localhost:1337/ in browser
 
 ## Requirements
 
