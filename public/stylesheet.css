@@ -36,6 +36,7 @@
 
 .gray {
   color: #525252 !important;
+  margin-top: -5px !important;
 }
 
 #category {
@@ -220,4 +221,12 @@
 
 #robotoFont {
   font-family: "Roboto", sans-serif !important;
+  color: #525252;
+}
+
+#maintitle {
+  color: #ffffff !important;
+  opacity: 80%;
+  margin-left: 5px;
+  font-family: "Lobster", sans-serif;
 }
