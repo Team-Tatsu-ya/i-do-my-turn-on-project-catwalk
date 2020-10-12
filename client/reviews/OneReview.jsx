@@ -62,25 +62,3 @@ const OneReview = (props) => {
 };
 
 export default OneReview;
-
-
-// const OneReview = (props) => {
-//   return (
-//     <div>
-//       <Rating
-//         name="simple-controlled"
-//         value={props.individual.rating}
-//         precision={0.25}
-//         readOnly
-//       />
-//       <h3>{props.individual.summary}</h3>
-//       <h6 style={{float: 'right'}}>{props.individual.date}</h6>
-//       <h6 style={{float: 'right'}}>{props.individual.reviewer_name}</h6>
-//       <h4>{props.individual.body}</h4>
-//       {props.individual.response !== "" ? <><h3>Response</h3><h4>{props.individual.response}</h4></> : null}
-//       <hr className="solid"></hr>
-//     </div>
-//   );
-// };
-
-// export default OneReview;

@@ -13,7 +13,7 @@ class App extends React.Component {
       apiUrl: 'http://3.137.191.193',
       allProducts: [],
       allProductNames: [],
-      currentId: 9,
+      currentId: 3,
       currentProduct: {},
       currentProductStyle: {},
       customerOutfit: {},
