@@ -3,7 +3,7 @@ import OneReview from './OneReview.jsx';
 
 const ReviewList = (props) => {
   // console.log('this is what you are trying to map over', props.reviews.results);
-  console.log('this is the reviews2 props' , props.reviews);
+  // console.log('this is the reviews2 props' , props.reviews);
   return (
     <div>
       {props.reviews.map((individualReview, i) => {

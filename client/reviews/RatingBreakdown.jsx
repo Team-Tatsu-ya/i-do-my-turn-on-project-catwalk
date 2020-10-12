@@ -8,20 +8,15 @@ import {
   ArgumentAxis,
   ValueAxis,
 } from '@devexpress/dx-react-chart-material-ui';
-
 import { Animation } from '@devexpress/dx-react-chart';
 
-// var arrayOfRatings = [
-//   {2: 2, 3: 6, 4: 4}
-// ];
-// [{rating: "", total: , numberOfReviews: }]
 
 const RatingBreakdown = (props) => {
-  console.log("this is ratings props for GRAPH", props.ratings);
-  console.log("this is the recommend data in rating breakdown", props.recommend);
+  // console.log("this is ratings props for GRAPH", props.ratings);
+  // console.log("this is the recommend data in rating breakdown", props.recommend);
 
   var arrayOfRatings = [props.ratings];
-  console.log('****', arrayOfRatings);
+  // console.log('****', arrayOfRatings);
 
   const getYesRecommend = () => {
     var totalRecommend = 0;
@@ -44,7 +39,7 @@ const RatingBreakdown = (props) => {
 
   var tt = getTotalReviews();
 
-  console.log("this is the total TT", tt)
+  // console.log("this is the total TT", tt);
 
   var dataRate = [
     { ratingStar: '1 star', rating: !arrayOfRatings[0][1] ? 0 : arrayOfRatings[0][1], totalReviews: !arrayOfRatings[0][1] ? tt - 0 : tt - arrayOfRatings[0][1] },

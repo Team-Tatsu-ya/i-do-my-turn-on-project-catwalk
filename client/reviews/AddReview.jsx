@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     // overflow: 'hidden',
     overflow: 'scroll',
-    height: '105%',
+    height: '100%',
     // width: '60%'
   },
   paper: {
@@ -212,27 +212,4 @@ export default function TransitionsModal() {
       </Modal >
     </div >
   );
-}
-
-
-
-
-{/* <Modal>
-  <Form>
-    //each individual form group
-
-    //characteristics mapping through and making radio buttons
-
-    //do you recommend this product, radio button
-
-    //Review Body
-
-    //What is your nickname
-
-    //Email address
-
-    //Submit button
-    <Button variant="primary">Primary</Button>
-
-  </Form>
-</Modal> */}
+};

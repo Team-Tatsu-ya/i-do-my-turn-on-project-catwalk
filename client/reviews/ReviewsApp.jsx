@@ -27,7 +27,6 @@ class ReviewsApp extends Component {
     //binding of methods
     this.getReviews = this.getReviews.bind(this);
     this.getNextReviews = this.getNextReviews.bind(this);
-    // this.addReview = this.addReview.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.handleMoreReviews = this.handleMoreReviews.bind(this);
 
@@ -35,22 +34,14 @@ class ReviewsApp extends Component {
 
   componentDidMount() {
     this.getReviews();
-    console.log("this is the structure of dummyData", this.state.product);
   }
-
-  //post a review
-  // addReview() {
-  //   axios.post()
-  //     .then()
-  //     .catch()
-  // }
 
   //get a review
   getReviews() {
     var nextReview = this.state.page + 1;
-    const meta = axios.get(`http://3.137.191.193/reviews/meta/?product_id=${this.state.productId}`);
-    const reviews = axios.get(`http://3.137.191.193/reviews/?product_id=${this.state.productId}&count=2&page=${this.state.page}`);
-    const next = axios.get(`http://3.137.191.193/reviews/?product_id=${this.state.productId}&count=2&page=${nextReview}`);
+    const meta = axios.get(`http://3.137.191.193/reviews/meta/?product_id=${this.props.currentId}`);
+    const reviews = axios.get(`http://3.137.191.193/reviews/?product_id=${this.props.currentId}&count=2&page=${this.state.page}`);
+    const next = axios.get(`http://3.137.191.193/reviews/?product_id=${this.props.currentId}&count=2&page=${nextReview}`);
     axios.all([meta, reviews, next]).then(axios.spread((...results) => {
       this.setState({
         metaData: results[0].data.ratings,
@@ -71,8 +62,8 @@ class ReviewsApp extends Component {
 
   getNextReviews() {
     var nextReview = this.state.page + 1;
-    const reviews = axios.get(`http://3.137.191.193/reviews/?product_id=${this.state.productId}&count=2&page=${this.state.page}`);
-    const next = axios.get(`http://3.137.191.193/reviews/?product_id=${this.state.productId}&count=2&page=${nextReview}`);
+    const reviews = axios.get(`http://3.137.191.193/reviews/?product_id=${this.props.currentId}&count=2&page=${this.state.page}`);
+    const next = axios.get(`http://3.137.191.193/reviews/?product_id=${this.props.currentId}&count=2&page=${nextReview}`);
     axios.all([reviews, next]).then(axios.spread((...results) => {
       this.setState({
         reviewData: [...this.state.reviewData, ...results[0].data.results],
@@ -92,15 +83,6 @@ class ReviewsApp extends Component {
   handleAdd(event) {
     this.setState({ addButton: true })
   }
-
-  // handleReviews() {
-  //   console.log("you clicked the button")
-  //   this.setState({
-  //     showReviews:
-  //       this.state.showReviews >= this.state.product.length ?
-  //         this.state.showReviews : this.state.showReviews + 1
-  //   })
-  // }
 
   render() {
 
